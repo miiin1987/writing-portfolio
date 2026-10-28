@@ -576,6 +576,13 @@ ul, ol { list-style: none; }
   color: rgba(255,255,255,.55);
   font-weight: 400;
 }
+.profile-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  margin: -.5rem 0 .75rem;
+  color: var(--navy);
+}
 .profile-aside h1 {
   font-family: var(--serif);
   font-size: 1.15rem;
