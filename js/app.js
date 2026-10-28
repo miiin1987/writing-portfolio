@@ -422,7 +422,9 @@ function renderProfile() {
         <div class="profile-inner">
 
           <aside class="profile-aside reveal">
-            <div class="profile-mark"><span>W</span></div>
+            <div class="profile-mark">
+              <img src="img/profile.png" alt="ぬっま" class="profile-avatar">
+            </div>
             <p class="profile-name">ぬっま</p>
             <h1>Webライター ／ シナリオライター</h1>
             <p class="role">Writing Portfolio</p>
