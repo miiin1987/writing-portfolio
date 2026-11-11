@@ -1,61 +1,1363 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="AIから暮らし・健康・キャリアまで、幅広いジャンルに対応するWebライターのポートフォリオです。">
-  <title>Writing Portfolio | Webライター ポートフォリオ</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ぬっま ライティングポートフォリオ</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="AIから暮らし・健康・キャリアまで、幅広いジャンルに対応するWebライターのポートフォリオです。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Klee+One:wght@600&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Barlow:wght@600;700&family=Zen+Old+Mincho:wght@600;700&display=swap">
+<style>
+/* Layout: 表紙ページ（白地＋ぼかした色の重なり＋一本線のドローイング）をトップに置き、その下は白い余白の多い1カラム。紙のポートフォリオの印象に合わせ、意図的にライトのみ。 */
+:root{
+  color-scheme:light;
+  --paper:#ffffff; --ink:#2b2a33; --muted:#6f6c7a; --line:#ece8ef; --soft:#faf6fa;
+  --pink:#e8509b; --pink-soft:#fde7f2; --lav:#b9a2f2;
+  --b1:#f6b8d8; --b2:#d9c3ff; --b3:#ff9fcb; --b4:#ffd0e6;
+  --f-hand:"Klee One","Hiragino Maru Gothic ProN","Yu Gothic",cursive;
+  --f-body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic","Meiryo",sans-serif;
+  --f-label:"Barlow","Zen Kaku Gothic New",sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;scroll-padding-top:68px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:1rem;line-height:1.85;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+a{color:inherit}
+a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--pink);outline-offset:3px}
+h1,h2,h3,h4,p{margin:0}
+h1,h2,h3{line-height:1.4;text-wrap:balance}
+.wrap{max-width:1080px;margin:0 auto}
+
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:6;background:rgba(255,255,255,.88);backdrop-filter:blur(10px);
+  margin-left:calc(-1*max(16px,env(safe-area-inset-left,0px)));margin-right:calc(-1*max(16px,env(safe-area-inset-right,0px)));
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));border-bottom:1px solid var(--line)}
+.top .wrap{height:58px;display:flex;align-items:center;gap:16px}
+.top .logo{font-family:var(--f-hand);font-size:1.3rem;text-decoration:none;line-height:1}
+.top .logo small{font-family:var(--f-label);font-weight:600;font-size:.7rem;letter-spacing:.14em;color:var(--muted);margin-left:.6em}
+.top nav{margin-left:auto;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.top nav::-webkit-scrollbar{display:none}
+.top nav a{font-size:.82rem;padding:6px 10px;border-radius:999px;text-decoration:none;color:var(--muted);white-space:nowrap}
+.top nav a:hover,.top nav a[aria-current="page"]{color:var(--ink);background:var(--soft)}
+.top nav a.cta{background:var(--ink);color:#fff}
+@media (max-width:640px){.top nav a.opt{display:none}}
+
+/* cover = the reference "top page" */
+.cover{position:relative;margin-top:24px;aspect-ratio:16/9;max-height:78vh;width:100%;background:var(--paper);overflow:hidden;
+  border:1px solid var(--line);box-shadow:0 18px 50px rgba(120,80,130,.10);container-type:inline-size}
+@media (max-width:700px){.cover{aspect-ratio:auto;min-height:660px;max-height:none}.top .logo small{display:none}.cover .catch > p:first-child{display:none}}
+.blobs{position:absolute;inset:0;pointer-events:none}
+.blobs i{position:absolute;display:block;filter:blur(clamp(10px,2.2cqw,26px));mix-blend-mode:multiply;opacity:.9;animation:drift 18s ease-in-out infinite alternate}
+.blobs i:nth-child(1){left:20%;top:-6%;width:34%;height:62%;background:var(--b2);border-radius:58% 42% 55% 45%/48% 60% 40% 52%}
+.blobs i:nth-child(2){left:40%;top:4%;width:42%;height:54%;background:var(--b4);border-radius:44% 56% 40% 60%/55% 42% 58% 45%;animation-duration:22s}
+.blobs i:nth-child(3){left:6%;top:48%;width:40%;height:52%;background:var(--b1);border-radius:50% 50% 38% 62%/60% 46% 54% 40%;animation-duration:20s}
+.blobs i:nth-child(4){left:42%;top:40%;width:34%;height:58%;background:var(--b3);opacity:.75;border-radius:62% 38% 52% 48%/40% 58% 42% 60%;animation-duration:24s}
+.blobs i:nth-child(5){left:64%;top:20%;width:24%;height:62%;background:#f590c0;opacity:.6;border-radius:40% 60% 46% 54%/62% 38% 62% 38%;animation-duration:26s}
+@keyframes drift{from{transform:translate(0,0) rotate(0)}to{transform:translate(2%,-3%) rotate(6deg)}}
+.cover .label{position:absolute;left:8%;top:13%;font-family:var(--f-label);font-weight:700;line-height:1.15;color:#3a3742;z-index:2}
+.cover .label b{display:block;font-size:max(18px,2.6cqw);letter-spacing:.02em}
+.cover .label span{display:block;font-size:max(12px,1.5cqw);letter-spacing:.05em;margin-top:.6em}
+.cover .line{position:absolute;left:0;top:24%;width:100%;height:30%;z-index:2;overflow:visible}
+.cover .line path{fill:none;stroke:var(--pink);stroke-width:1.6;stroke-linecap:round;stroke-dasharray:2600;stroke-dashoffset:2600;animation:draw 3.2s .3s ease-out forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.cover .sig{position:absolute;left:13%;top:30%;font-family:var(--f-hand);color:var(--pink);font-size:max(26px,4.2cqw);line-height:1;z-index:3;transform:rotate(-6deg)}
+.cover .name{position:absolute;right:7%;bottom:8%;font-family:var(--f-label);font-weight:700;letter-spacing:.08em;font-size:max(12px,1.35cqw);color:#3a3742;z-index:2}
+.cover .catch{position:absolute;left:8%;bottom:9%;max-width:min(560px,58%);z-index:2;display:grid;gap:.6em}
+.cover .catch h1{font-size:max(19px,2.4cqw);font-weight:900;line-height:1.5}
+.cover .catch p{font-size:max(13px,1.15cqw);color:#4a4652;line-height:1.8}
+@media (max-width:700px){
+  .cover .label{left:20px;top:22px}.cover .sig{left:30px;top:128px}.cover .line{top:104px;height:110px;width:170%;left:-12%}
+  .cover .catch{left:20px;right:20px;bottom:56px;max-width:none}.cover .name{right:20px;bottom:20px}}
+.cover-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:.4em;padding:.75em 1.4em;border-radius:999px;font-weight:700;font-size:.9rem;text-decoration:none;border:1.5px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;font-family:inherit}
+.btn.ghost{background:rgba(255,255,255,.7);color:var(--ink)}
+.btn.pink{background:var(--pink);border-color:var(--pink)}
+.btn:hover{transform:translateY(-1px)}
+
+/* sections */
+section.sec{padding-block:96px 0}
+.sec-head{display:grid;gap:10px;margin-bottom:36px;max-width:44em}
+.eyebrow{font-family:var(--f-label);font-weight:700;letter-spacing:.18em;font-size:.78rem;color:var(--pink);text-transform:uppercase;display:flex;align-items:center;gap:.8em}
+.eyebrow::before{content:"";width:26px;height:1.5px;background:var(--pink)}
+.sec-head h2{font-size:clamp(1.55rem,3.4vw,2.2rem);font-weight:900}
+.sec-head p{color:var(--muted)}
+.note{font-size:.8rem;color:var(--muted)}
+footer{max-width:1080px;margin:0 auto;padding-block:72px 40px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:.8rem;color:var(--muted);border-top:1px solid var(--line);margin-top:96px}
+footer .logo{font-family:var(--f-hand);font-size:1.1rem;color:var(--ink)}
+
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.filters button{font:inherit;font-size:.82rem;padding:6px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--muted);cursor:pointer}
+.filters button.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.articles{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media (max-width:900px){.articles{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.articles{grid-template-columns:1fr}}
+.art{font:inherit;color:inherit;text-align:left;cursor:pointer;background:#fff;border:1px solid var(--line);border-radius:20px;padding:0 0 20px;display:flex;flex-direction:column;gap:10px;overflow:hidden;transition:transform .2s,box-shadow .2s;min-width:0}
+.art:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(120,80,130,.12)}
+.art::before{content:"";display:block;height:92px;background:radial-gradient(50% 90% at 25% 30%,var(--b2),transparent 70%),radial-gradient(55% 90% at 75% 70%,var(--b1),transparent 70%),var(--soft)}
+.art[data-g="健康"]::before{background:radial-gradient(50% 90% at 30% 40%,#c8f0dc,transparent 70%),radial-gradient(55% 90% at 75% 60%,var(--b4),transparent 70%),var(--soft)}
+.art[data-g="仕事・キャリア"]::before{background:radial-gradient(50% 90% at 30% 40%,#ffe0bd,transparent 70%),radial-gradient(55% 90% at 75% 60%,var(--b1),transparent 70%),var(--soft)}
+.art[data-g="暮らし・ライフスタイル"]::before{background:radial-gradient(50% 90% at 30% 40%,#fff0c2,transparent 70%),radial-gradient(55% 90% at 75% 60%,var(--b4),transparent 70%),var(--soft)}
+.art[data-g="シナリオ・脚本"]::before{background:radial-gradient(50% 90% at 30% 40%,#c9cdf6,transparent 70%),radial-gradient(55% 90% at 75% 60%,var(--b3),transparent 70%),var(--soft)}
+.art > *{margin:0 20px}
+.art .g{align-self:flex-start;margin-top:-30px;background:#fff;border-radius:999px;padding:2px 12px;font-size:.75rem;font-weight:700;color:var(--pink);box-shadow:0 2px 8px rgba(120,80,130,.1)}
+.art b{font-size:1.02rem;line-height:1.6}
+.art p{font-size:.85rem;color:var(--muted);line-height:1.75}
+.art small{margin-top:auto;font-family:var(--f-label);font-size:.78rem;color:var(--muted);letter-spacing:.04em}
+.story{position:relative;border-radius:28px;overflow:hidden;border:1px solid var(--line)}
+.story .blobs i:nth-child(1){left:60%;top:-20%;width:40%;height:100%}
+.story .blobs i:nth-child(2){left:78%;top:30%;width:30%;height:80%}
+.story .blobs i:nth-child(3){left:48%;top:50%;width:26%;height:70%}
+.st-in{position:relative;z-index:1;padding:clamp(26px,5vw,56px);display:grid;gap:14px;max-width:640px}
+.g2{font-size:.8rem;font-weight:700;color:var(--pink)}
+.st-in h3{font-family:"Zen Old Mincho",var(--f-body);font-size:clamp(1.4rem,3vw,1.9rem)}
+.st-in p{color:#4a4652}
+.done{font-family:var(--f-hand);color:var(--pink)!important;font-size:1.1rem}
+.eps{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:8px}
+.eps button{width:100%;font:inherit;text-align:left;cursor:pointer;background:rgba(255,255,255,.85);border:1px solid var(--line);border-radius:14px;padding:12px 16px;display:flex;gap:14px;align-items:center;color:var(--ink)}
+.eps button:hover{border-color:var(--pink)}
+.eps span{font-family:var(--f-label);font-weight:700;color:var(--pink);font-size:.85rem;white-space:nowrap}
+.prof{display:grid;grid-template-columns:280px 1fr;gap:56px;align-items:start}
+@media (max-width:780px){.prof{grid-template-columns:1fr;gap:32px}}
+.prof-side{display:grid;gap:12px;justify-items:start;position:sticky;top:90px}
+@media (max-width:780px){.prof-side{position:static}}
+.avatar{width:180px;max-width:100%;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;
+  background:radial-gradient(circle at 30% 30%,var(--b2),transparent 60%),radial-gradient(circle at 70% 70%,var(--b1),transparent 60%),var(--b4)}
+.avatar span{font-family:var(--f-hand);font-size:3.4rem;color:var(--pink)}
+.prof-side h2{font-family:var(--f-hand);font-size:2rem;font-weight:600}
+.role{font-weight:700;color:var(--muted);font-size:.9rem}
+.chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.chips li{font-size:.78rem;padding:3px 11px;border-radius:999px;background:var(--pink-soft);color:#a12b66}
+.prof-main{display:grid;gap:36px;min-width:0}
+.prof-main > div{display:grid;gap:12px}
+.prof-main p{max-width:40em}
+.skills{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:560px){.skills{grid-template-columns:1fr}}
+.skills li{padding:12px 16px;border-radius:14px;background:var(--soft);font-weight:700;font-size:.92rem}
+.skills li::before{content:"✓ ";color:var(--pink)}
+.contact-card{position:relative;border-radius:28px;overflow:hidden;border:1px solid var(--line)}
+.contact-card .blobs i:nth-child(1){left:62%;top:-20%;width:40%;height:70%}
+.contact-card .blobs i:nth-child(2){left:76%;top:40%;width:30%;height:60%}
+.contact-card .blobs i:nth-child(3){left:-10%;top:70%;width:30%;height:50%}
+.cc-in{position:relative;z-index:1;padding:clamp(26px,5vw,56px);display:grid;gap:16px;max-width:680px}
+.cc-in h2{font-size:clamp(1.5rem,3.2vw,2.1rem);font-weight:900}
+.form{display:grid;gap:14px;background:rgba(255,255,255,.88);border:1px solid var(--line);border-radius:20px;padding:22px}
+.f2{display:grid;gap:6px}
+.f2 label{font-weight:700;font-size:.88rem}
+.f2 em{font-style:normal;font-size:.7rem;color:#fff;background:var(--pink);border-radius:4px;padding:1px 6px;margin-left:8px}
+.f2 input,.f2 select,.f2 textarea{font:inherit;font-size:.95rem;padding:10px 12px;border:1px solid #ddd6e2;border-radius:10px;background:#fff;color:var(--ink);width:100%}
+.err{color:#b4235f;font-size:.85rem}
+.form code{font-family:var(--f-label);font-weight:600;color:var(--ink);user-select:all}
+dialog#reader{width:min(820px,100% - 24px);max-height:calc(100% - 32px);padding:0;border:none;border-radius:22px;box-shadow:0 30px 80px rgba(60,30,70,.3);color:var(--ink);background:#fff;overflow:auto}
+dialog#reader::backdrop{background:rgba(43,42,51,.45);backdrop-filter:blur(3px)}
+.r-bar{position:sticky;top:0;z-index:1;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 20px;background:rgba(255,255,255,.95);border-bottom:1px solid var(--line)}
+.r-bar span{font-size:.8rem;font-weight:700;color:var(--pink)}
+.r-bar button{font:inherit;font-size:.82rem;border:1px solid var(--line);background:#fff;border-radius:999px;padding:4px 14px;cursor:pointer;color:var(--ink)}
+.r-body{padding:clamp(22px,5vw,52px);display:grid;gap:1.1em}
+.r-body h2{font-family:"Zen Old Mincho",var(--f-body);font-size:clamp(1.35rem,3vw,1.8rem);line-height:1.5;margin-bottom:.4em}
+#r-text{display:grid;gap:1em;font-size:1rem;line-height:2}
+#r-text h3{font-size:1.2rem;margin-top:1.2em;padding-bottom:.3em;border-bottom:2px solid var(--b1)}
+#r-text h4{font-size:1.02rem;margin-top:.4em}
+#r-text ul{margin:0;padding:14px 18px 14px 2.2em;background:var(--soft);border-radius:12px}
+#r-text .pr{background:#fff7fb;border:1px solid var(--b4);border-left:4px solid var(--pink);border-radius:10px;padding:12px 16px;font-size:.92rem;line-height:1.85}
+#r-text .pr small{display:block;font-weight:700;color:var(--pink);font-size:.75rem}
+#r-text .scene{font-weight:700;background:var(--soft);border-radius:8px;padding:6px 12px;margin-top:.8em}
+#r-text .ln{display:grid;grid-template-columns:7.5em 1fr;gap:.8em}
+#r-text .ln b{color:#7a4a68;font-weight:700}
+@media (max-width:560px){#r-text .ln{grid-template-columns:1fr;gap:0}}
+#r-text .end{text-align:right;font-family:var(--f-hand);color:var(--pink)}
+.r-nav{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.r-nav button{font:inherit;font-weight:700;cursor:pointer;background:var(--ink);color:#fff;border:none;border-radius:999px;padding:10px 20px}
+
+.avatar{position:relative;overflow:hidden}
+.avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+</style>
 </head>
 <body>
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#top">ぬっま<small>WRITING PORTFOLIO</small></a>
+    <nav aria-label="メニュー">
+      <a href="#writing">ライティング</a>
+      <a class="opt" href="#scenario">シナリオ</a>
+      <a class="opt" href="#profile">プロフィール</a>
+      <a class="cta" href="#contact">ご依頼について</a>
+    </nav>
+  </div>
+</header>
 
-  <header class="header" id="header">
-    <div class="container header-inner">
-      <a class="logo" href="#/">Writing Portfolio</a>
-      <nav class="nav" role="navigation" aria-label="メインナビゲーション">
-        <button class="nav-toggle" id="navToggle" aria-label="メニューを開く" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
-        <ul class="nav-list" id="navList" role="list">
-          <li><a class="nav-link" href="#/">トップ</a></li>
-          <li><a class="nav-link" href="#/writing">ライティング</a></li>
-          <li><a class="nav-link" href="#/scenario">シナリオ</a></li>
-          <li><a class="nav-link" href="#/profile">プロフィール</a></li>
-          <li><a class="nav-link" href="#/contact">お問い合わせ</a></li>
-        </ul>
-      </nav>
+<main class="wrap" id="top">
+  <div class="cover" role="img" aria-label="表紙：ぬっま Webライティングポートフォリオ">
+    <div class="blobs" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+    <p class="label"><b>2026</b><span>WRITING<br>PORTFOLIO</span></p>
+    <svg class="line" viewBox="0 0 1000 220" preserveAspectRatio="none" aria-hidden="true"><path d="M-20 130 C 40 118, 80 142, 118 128 C 150 116, 128 52, 190 40 C 262 28, 286 118, 222 136 C 176 150, 150 170, 214 168 C 380 176, 520 148, 700 156 S 900 120, 1030 98"/></svg>
+    <span class="sig" aria-hidden="true">ぬっま</span>
+    <div class="catch">
+      <p style="font-family:var(--f-label);font-weight:700;letter-spacing:.14em;font-size:.72rem;color:var(--pink)">WRITING PORTFOLIO</p>
+      <h1>読者に届く文章で、<br>価値あるコンテンツをお届けします。</h1>
+      <p>Webライティングからシナリオ制作まで、丁寧な表現と確かな構成力でコンテンツをお届けするライターのポートフォリオです。</p>
+      <div class="cover-actions"><a class="btn" href="#writing">ライティングを見る →</a><a class="btn ghost" href="#scenario">シナリオを見る →</a></div>
     </div>
-  </header>
+    <p class="name">NUMMA</p>
+  </div>
 
-  <main id="main" class="main"></main>
+  <section class="sec" id="writing" aria-labelledby="h-writing">
+    <div class="sec-head"><p class="eyebrow">Web writing</p><h2 id="h-writing">Webライティング</h2><p>各ジャンルのサンプル記事です。カードをクリックすると全文をご覧いただけます。</p></div>
+    <div class="filters" role="group" aria-label="ジャンルで絞り込む">
+      <button type="button" class="on" data-f="all">ALL</button><button type="button" data-f="AI・IT">AI・IT</button><button type="button" data-f="暮らし・ライフスタイル">暮らし・ライフスタイル</button><button type="button" data-f="健康">健康</button><button type="button" data-f="仕事・キャリア">仕事・キャリア</button><button type="button" data-f="コラム・体験談">コラム・体験談</button><button type="button" data-f="シナリオ・脚本">シナリオ・脚本</button>
+    </div>
+    <div class="articles">
+      <button type="button" class="art" data-g="AI・IT" data-open="a-chatgpt"><span class="g">AI・IT</span><b>ChatGPTを仕事に活用する5つの方法｜具体例と注意点を解説</b><p>生成AIの普及により、ChatGPTを日常業務に取り入れる企業や個人が増えています。本記事では、仕事で活用できる5つの方法を、具体的なプロンプト例とともに解説します。</p><small>2026.10.27 ・ 5 min read</small></button>
+      <button type="button" class="art" data-g="暮らし・ライフスタイル" data-open="a-minimal"><span class="g">暮らし・ライフスタイル</span><b>モノを減らして暮らしを整える5つのコツ｜無理なく続ける整理術</b><p>「片付けても、すぐにモノが増えてしまう」そんな悩みを抱える方に向けて、無理なくモノを減らし、すっきりした部屋を維持するための5つのコツを紹介します。</p><small>2026.10.27 ・ 4 min read</small></button>
+      <button type="button" class="art" data-g="健康" data-open="a-health"><span class="g">健康</span><b>在宅ワークの健康管理｜運動不足・肩こり・疲れを防ぐ7つの習慣</b><p>在宅ワークでは運動不足や姿勢の悪化が起きやすくなります。この記事では、在宅ワーカーが日常生活に取り入れやすい7つの健康習慣を紹介します。</p><small>2026.10.27 ・ 4 min read</small></button>
+      <button type="button" class="art" data-g="仕事・キャリア" data-open="a-freelance"><span class="g">仕事・キャリア</span><b>フリーランスを始める前に知っておきたい、現実的な3つのこと</b><p>「自分のペースで働ける」「頑張った分だけ収入を増やせる」——フリーランスという働き方には魅力があります。一方で会社員とは異なる準備が必要です。独立してから後悔しないために、事前に知っておきたい3つのポイントを解説します。</p><small>2026.10.27 ・ 3 min read</small></button>
+      <button type="button" class="art" data-g="コラム・体験談" data-open="a-journey"><span class="g">コラム・体験談</span><b>ライター業を始めて気づいた、「書くこと」の本当の難しさ</b><p>ライターの仕事を始めて気づいたのは、文章を書くことと、読者に伝わる文章を書くことは違うということです。準備・分かりやすさ・読者視点——ライティングに取り組むなかで感じた3つの難しさについて書いています。</p><small>2026.10.27 ・ 4 min read</small></button>
+      <button type="button" class="art" data-g="AI・IT" data-open="a-aiwriting"><span class="g">AI・IT</span><b>AIと協働する文章作成術｜すぐに使えるプロンプト実践テクニック</b><p>生成AIはアイデア出し・構成作成・推敲など、文章作成のさまざまな工程を支援してくれます。Webライティングですぐに使える具体的なプロンプト例と、AI活用時の注意点を紹介します。</p><small>2026.10.27 ・ 4 min read</small></button>
+      <button type="button" class="art" data-g="シナリオ・脚本" data-open="s-night"><span class="g">シナリオ・脚本</span><b>Webドラマ用サンプルシナリオ「夜の改札で」第1話より</b><p>Webドラマ向けに制作したオリジナルシナリオのサンプルです。広告代理店に勤める主人公が、偶然の出会いをきっかけに自分の選択を見つめ直す物語の冒頭部分です。</p><small>2026.10.27 ・ 3 min read</small></button>
+    </div>
+  </section>
 
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-inner">
-        <a class="footer-logo" href="#/">Writing Portfolio</a>
-        <nav class="footer-nav" aria-label="フッターナビゲーション">
-          <a href="#/">トップ</a>
-          <a href="#/writing">ライティング</a>
-          <a href="#/scenario">シナリオ</a>
-          <a href="#/profile">プロフィール</a>
-          <a href="#/contact">お問い合わせ</a>
-        </nav>
-        <p class="footer-copy">&copy; 2024 Writing Portfolio &nbsp;|&nbsp; このサイトはポートフォリオ用サンプルです</p>
+  <section class="sec" id="scenario" aria-labelledby="h-scen">
+    <div class="sec-head"><p class="eyebrow">Scenario writing</p><h2 id="h-scen">シナリオ制作</h2><p>創作ストーリーやYouTube台本などの作品を掲載しています。</p></div>
+    <article class="story">
+      <div class="blobs" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="st-in">
+        <p class="g2">恋愛・創作ストーリー ／ 恋愛・溺愛・逆転劇</p>
+        <h3>私を捨てた元彼の前に、億万長者の婚約者が現れた</h3>
+        <p>婚約破棄を告げられたその日、まさか億万長者の御曹司が現れるとは——。<br>突然の申し出と冷酷な視線の裏に隠れた甘い秘密、そして元彼への完璧な逆転劇を描く、胸きゅん溺愛ストーリー。</p>
+        <p class="done">全3話完結</p>
+        <ol class="eps">
+          <li><button type="button" data-open="s-ep1"><span>第1話</span>婚約破棄と謎の御曹司 →</button></li>
+          <li><button type="button" data-open="s-ep2"><span>第2話</span>冷酷な御曹司の甘すぎる秘密 →</button></li>
+          <li><button type="button" data-open="s-ep3"><span>第3話</span>私を捨てた男の末路 →</button></li>
+        </ol>
+      </div>
+    </article>
+  </section>
+
+  <section class="sec" id="profile" aria-labelledby="h-prof">
+    <div class="prof">
+      <div class="prof-side">
+        <div class="avatar"><span aria-hidden="true">ぬ</span><img src="data:image/webp;base64,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" alt="ぬっまのプロフィールイラスト"></div>
+        <h2 id="h-prof">ぬっま</h2>
+        <p class="role">Webライター ／ シナリオライター</p>
+        <ul class="chips"><li>AI・IT</li><li>ライフスタイル</li><li>健康</li><li>仕事・キャリア</li><li>コラム</li><li>シナリオ・脚本</li></ul>
+        <a class="btn ghost" data-platform="cw" href="" target="_blank" rel="noopener" hidden>CROWDWORKS →</a><a class="btn ghost" data-platform="lancers" href="" target="_blank" rel="noopener" hidden>LANCERS →</a>
+      </div>
+      <div class="prof-main">
+        <div><p class="eyebrow">About</p><p>はじめまして。Webライターとして、AI・IT分野から暮らし・健康・キャリアまで、幅広いジャンルの記事制作に取り組んでいます。</p><p>「読んでよかった」と思っていただける記事を届けることを目標に、丁寧なリサーチと読者視点を大切にしたライティングを心がけています。</p></div>
+        <div><p class="eyebrow">Skills</p><ul class="skills"><li>読者に寄り添った文章</li><li>わかりやすい構成づくり</li><li>丁寧なリサーチ</li><li>SEOを意識した記事制作</li><li>納期厳守</li><li>丁寧なコミュニケーション</li></ul></div>
+        <div><p class="eyebrow">Approach</p><p>ライティングにおいて最も大切にしていることは、「読者にとっての価値」です。文字数を埋めるための文章ではなく、読んだ人が何か気づきを得たり、行動のきっかけになったりするような記事を目指しています。</p><p>また、情報の正確さには特に気を使っています。事実確認を怠らず、信頼できる情報源に基づいた内容をお届けすることを基本姿勢としています。</p></div>
+        <div><p class="eyebrow">Genres</p><p>AI・IT、暮らし・ライフスタイル、健康、仕事・キャリア、コラム・体験談に加え、Webドラマや動画台本などのシナリオ・脚本にも対応しています。</p></div>
       </div>
     </div>
-  </footer>
+  </section>
 
-  <noscript>
-    <div style="padding:2rem;text-align:center;background:#fff3cd;color:#856404;">
-      このサイトはJavaScriptを使用しています。ブラウザの設定でJavaScriptを有効にしてください。
+  <section class="sec" id="contact" aria-labelledby="h-contact">
+    <div class="contact-card">
+      <div class="blobs" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="cc-in">
+        <p class="eyebrow">Contact</p>
+        <h2 id="h-contact">お仕事のご依頼・ご相談はお気軽に</h2>
+        <p id="c-text">ご依頼・ご相談は、このポートフォリオをご覧いただいたサービス（クラウドワークス・ランサーズ）のメッセージからお送りください。内容を確認次第、できる限り早めにご返信いたします。</p>
+        <div class="cover-actions" id="c-links">
+          <a class="btn pink" data-platform="cw" href="" target="_blank" rel="noopener" hidden>クラウドワークスで相談する ↗</a>
+          <a class="btn pink" data-platform="lancers" href="" target="_blank" rel="noopener" hidden>ランサーズで相談する ↗</a>
+        </div>
+      </div>
     </div>
-  </noscript>
+  </section>
+</main>
 
-  <script src="js/articles.js"></script>
-  <script src="js/stories.js"></script>
-  <script src="js/app.js"></script>
+<footer><span class="logo">ぬっま</span><span>© 2026 ぬっま Writing Portfolio</span><a href="#top">ページ上部へ ↑</a></footer>
+
+<dialog id="reader" aria-labelledby="r-title">
+  <div class="r-bar"><span id="r-genre"></span><button type="button" id="r-close">閉じる ×</button></div>
+  <article class="r-body"><h2 id="r-title"></h2><div id="r-text"></div><p class="note" id="r-note"></p><div class="r-nav" id="r-nav"></div></article>
+</dialog>
+
+<script>
+(function(){
+  // 絞り込み
+  var btns=document.querySelectorAll('.filters button'),cards=document.querySelectorAll('.art');
+  btns.forEach(function(b){b.addEventListener('click',function(){
+    btns.forEach(function(x){x.classList.toggle('on',x===b);x.setAttribute('aria-pressed',x===b)});
+    cards.forEach(function(c){c.hidden=!(b.dataset.f==='all'||c.dataset.g===b.dataset.f)});
+  })});
+
+  // 本文リーダー
+  var dlg=document.getElementById('reader');
+  var esc=function(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+  function render(src){
+    var out=[],lines=src.textContent.trim().split('\n'),list=null,pr=null;
+    var flush=function(){if(list){out.push('<ul>'+list.join('')+'</ul>');list=null}if(pr){out.push('<div class="pr"><small>プロンプト例</small>'+pr.join('<br>')+'</div>');pr=null}};
+    lines.forEach(function(l){
+      l=l.trim(); if(!l) return;
+      if(l.indexOf('- ')===0){ if(pr)flush(); (list=list||[]).push('<li>'+esc(l.slice(2))+'</li>'); return; }
+      if(l.indexOf('> ')===0){ if(list)flush(); (pr=pr||[]).push(esc(l.slice(2))); return; }
+      flush();
+      if(l.indexOf('### ')===0) out.push('<h4>'+esc(l.slice(4))+'</h4>');
+      else if(l.indexOf('## ')===0) out.push('<h3>'+esc(l.slice(3))+'</h3>');
+      else if(l.indexOf('○ ')===0) out.push('<p class="scene">'+esc(l.slice(2))+'</p>');
+      else if(l.indexOf('——')===0) out.push('<p class="end">'+esc(l)+'</p>');
+      else { var m=l.match(/^([^　「『。、！？]{1,14}?)　(.+)$/); if(m && src.id.charAt(0)==='s') out.push('<p class="ln"><b>'+esc(m[1])+'</b><span>'+esc(m[2])+'</span></p>'); else out.push('<p>'+esc(l)+'</p>'); }
+    });
+    flush(); return out.join('');
+  }
+  function open(id){
+    var s=document.getElementById(id); if(!s) return;
+    document.getElementById('r-genre').textContent=s.dataset.genre;
+    document.getElementById('r-title').textContent=s.dataset.title;
+    document.getElementById('r-text').innerHTML=render(s);
+    document.getElementById('r-note').textContent='※ 本記事はWebライティングのポートフォリオ用に制作したサンプル記事です。'+(s.dataset.note?s.dataset.note:'');
+    var nav='';
+    if(s.dataset.prev) nav+='<button type="button" data-open="'+s.dataset.prev+'">← 前の話へ</button>';
+    if(s.dataset.next) nav+='<button type="button" data-open="'+s.dataset.next+'">次の話へ →</button>';
+    document.getElementById('r-nav').innerHTML=nav;
+    if(!dlg.open){ if(dlg.showModal) dlg.showModal(); else dlg.setAttribute('open',''); }
+    dlg.querySelector('.r-body').scrollTop=0; dlg.scrollTop=0;
+  }
+  document.addEventListener('click',function(e){var t=e.target.closest('[data-open]'); if(t){e.preventDefault();open(t.dataset.open)}});
+  document.getElementById('r-close').addEventListener('click',function(){dlg.close?dlg.close():dlg.removeAttribute('open')});
+  dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close()});
+
+  // 依頼窓口：プロフィールのURLをここに入れると、ボタンが表示されます
+  var PROFILE={
+    cw:'https://crowdworks.jp/public/employees/6863785',
+    lancers:'https://www.lancers.jp/profile/suwaccc'
+  };
+  // URLの末尾に ?from=cw または ?from=lancers を付けると、そのサービスだけを案内します
+  var from='';
+  try{ from=(new URLSearchParams(location.search).get('from')||'').toLowerCase(); }catch(e){}
+  var names={cw:'クラウドワークス',lancers:'ランサーズ'};
+  document.querySelectorAll('[data-platform]').forEach(function(a){
+    var p=a.dataset.platform, show=PROFILE[p] && (!names[from] || from===p);
+    if(show){ a.href=PROFILE[p]; a.hidden=false; }
+  });
+  if(names[from]){
+    document.getElementById('c-text').textContent='ご依頼・ご相談は、'+names[from]+'のメッセージからお送りください。内容を確認次第、できる限り早めにご返信いたします。';
+  }
+})();
+</script>
+
+<script type="text/plain" id="a-chatgpt" data-genre="AI・IT" data-title="ChatGPTを仕事に活用する5つの方法｜具体例と注意点を解説">
+生成AIの普及により、ChatGPTを日常業務に取り入れる企業や個人が増えています。しかし、「便利そうだけれど、具体的に何ができるのか分からない」という方もいるのではないでしょうか。
+ChatGPTは、文章作成や情報整理、アイデア出しなど、さまざまな業務を補助できるAIツールです。適切に活用することで、作業時間の短縮や業務の効率化につながります。
+本記事では、ChatGPTを仕事で活用する5つの方法を、具体的な指示文（プロンプト）とともに紹介します。
+## 1. メールやビジネス文書の作成
+ChatGPTは、ビジネスメールや報告書、案内文などの下書き作成に活用できます。
+例えば、取引先との打ち合わせ日程を変更したい場合、次のように指示します。
+> 「取引先に送る打ち合わせ日程変更のメールを作成してください。変更理由は社内会議の延長です。丁寧で簡潔な文章にし、代替日程を提案する内容にしてください。」
+このように、文章の目的や相手との関係性、伝えたい内容を具体的に指定すると、用途に合った文案を作成しやすくなります。
+作成された文章はそのまま送信せず、事実関係や敬語表現、相手に失礼のない内容になっているか確認しましょう。
+## 2. 情報収集とリサーチ
+ChatGPTは、調べたいテーマの概要を把握したり、情報を整理したりする際にも役立ちます。
+例えば、新しい業界について調べる場合、次のように指示できます。
+> 「SaaS業界について、初心者にも分かるように説明してください。市場の特徴、代表的なサービス、企業が導入するメリットを項目別に整理してください。」
+最初に全体像を把握することで、その後の調査を進めやすくなります。
+ただし、AIが生成する情報には誤りが含まれる場合があります。Web検索機能を利用できる環境であっても、情報が必ず正しいとは限りません。
+特に、企業情報や料金、法律、医療などの情報は、公式サイトや公的機関の資料を確認することが重要です。
+## 3. データ整理とリスト作成
+ChatGPTは、収集した情報を表形式に整理したり、指定した条件で分類したりする作業にも活用できます。
+例えば、企業情報を管理する場合は、次のような指示が考えられます。
+> 「以下の企業情報を、企業名・所在地・事業内容・公式サイトURLの4項目に整理してください。情報が不足している項目は推測せず、『未確認』と記載してください。」
+情報を統一した形式に整理することで、ExcelやGoogleスプレッドシートで管理しやすくなります。
+また、重複データの確認や、表記の統一などにも活用できます。
+ただし、AIが企業名や所在地を取り違える可能性もあるため、最終的には参照元と照合する必要があります。
+## 4. アイデア出しと業務改善
+ChatGPTは、課題を整理し、改善策を検討する際の相談相手としても利用できます。
+例えば、日常業務で時間がかかっている作業について、次のように質問します。
+> 「毎週、複数のExcelファイルから売上データを集計しています。作業時間を短縮するための方法を、導入しやすい順に5つ提案してください。」
+このように具体的な業務内容を伝えることで、作業手順の見直しや自動化のアイデアを得られます。
+提案された方法をすべて採用する必要はありません。費用や導入の難易度、現在の業務環境を考慮しながら、実行可能な方法を選ぶことが大切です。
+## 5. マニュアルや手順書の作成
+業務マニュアルの作成にもChatGPTを活用できます。
+例えば、新入社員向けの作業手順書を作成する場合、次のように指示します。
+> 「以下の作業手順を、新入社員向けのマニュアルに整理してください。作業の目的、具体的な手順、注意点の3項目に分け、専門用語には簡単な説明を加えてください。」
+箇条書きのメモや既存の資料をもとに、読みやすい構成へ整理することができます。
+また、作成したマニュアルについて「初心者が迷いやすい箇所を指摘してください」と依頼すれば、改善点を見つける手助けにもなります。
+ただし、AIは実際の社内ルールや業務環境を完全には把握していません。完成したマニュアルは、業務担当者による確認が必要です。
+## ChatGPTを業務で利用する際の3つの注意点
+ChatGPTを安全かつ効果的に活用するためには、次の3点を意識しましょう。
+### 1. 個人情報や機密情報の取り扱いに注意する
+顧客情報や社外秘の資料などを入力する際は、会社の利用規程や契約条件を確認する必要があります。
+利用するサービスや契約プランによって、データの取り扱いに関する設定や条件が異なるためです。
+### 2. 出力された情報を必ず確認する
+ChatGPTは、もっともらしい文章で誤った情報を生成することがあります。
+特に数値や固有名詞、法律・医療に関する内容は、信頼できる情報源で裏付けを取りましょう。
+### 3. AIに任せる範囲を決める
+AIは文章の下書きや情報整理を得意としますが、最終的な判断まで任せることは適切ではありません。
+AIに任せる作業と、人間が確認・判断する作業を分けることで、品質を維持しながら効率化を進められます。
+## まとめ
+ChatGPTは、文章作成、情報収集、データ整理、業務改善、マニュアル作成など、幅広い業務で活用できます。
+効果的に使うためのポイントは、目的や条件を具体的に伝えること、生成された情報を確認すること、そして小さな業務から導入することです。
+まずは日常的に時間がかかっている作業を一つ選び、ChatGPTでどこまで効率化できるか試してみましょう。
+AIを補助ツールとして適切に活用することが、業務改善への第一歩となります。
+</script>
+
+<script type="text/plain" id="a-health" data-genre="健康" data-title="在宅ワークの健康管理｜運動不足・肩こり・疲れを防ぐ7つの習慣" data-note="本記事は一般的な健康情報を紹介するものであり、個別の診断や治療を目的としたものではありません。">
+在宅ワークは通勤時間を削減できる一方、長時間座ったまま作業を続けたり、仕事と休憩の切り替えが難しくなったりすることがあります。
+「以前より体を動かす機会が減った」「夕方になると肩や腰がつらい」「仕事が終わっても疲れが取れない」と感じている方もいるのではないでしょうか。
+在宅ワークを快適に続けるためには、日常生活の中で無理なく健康管理を行うことが大切です。
+この記事では、在宅ワーカーが取り入れやすい7つの健康習慣を紹介します。
+## 1. 毎朝できるだけ同じ時間に起きる
+在宅ワークでは通勤の必要がないため、起床時間が不規則になりやすい場合があります。
+しかし、生活リズムが乱れると、睡眠や日中の活動にも影響することがあります。
+まずは、休日を含めて起床時間を大きく変えないことを意識しましょう。
+起床後にカーテンを開け、自然光を浴びることも生活リズムを整えるための工夫の一つです。
+朝の時間に余裕があれば、軽いストレッチや散歩を取り入れるのもよいでしょう。
+## 2. 長時間座り続けない
+在宅ワークでは、パソコンの前に座ったまま数時間が経過することもあります。
+長時間の座位行動は、健康への悪影響が指摘されています。
+そのため、作業の合間に立ち上がり、体を動かす時間を設けることが大切です。
+例えば、次のような方法があります。
+- 30〜60分を目安に立ち上がる
+- 飲み物を取りに行く
+- 室内を数分間歩く
+- 立った状態で軽く体を伸ばす
+一度に長時間運動することが難しくても、日常の中で座り続ける時間を減らす工夫はできます。
+## 3. パソコン作業の姿勢を見直す
+肩こりや腰の負担を軽減するためには、作業環境の見直しも重要です。
+特に、ノートパソコンを使用している場合、画面をのぞき込むような姿勢になりやすいため注意しましょう。
+作業環境を整える際は、次の点を確認してみてください。
+- 椅子に深く腰掛け、背中を支えられる状態にする
+- 足裏が床や足台につくようにする
+- 肩に余計な力が入らない位置にキーボードを置く
+- 画面を無理なく見られる高さや距離に調整する
+外付けのキーボードやモニターを利用すると、姿勢を調整しやすくなる場合もあります。
+ただし、正しい姿勢を意識するだけでなく、同じ姿勢を長時間続けないことも大切です。
+## 4. 目を休める時間をつくる
+パソコンやスマートフォンの画面を長時間見続けると、目の疲れや乾燥を感じることがあります。
+作業中は意識的に画面から目を離し、遠くを見るなどして休憩を取りましょう。
+また、画面の明るさや文字の大きさを調整し、無理なく見られる環境を整えることも重要です。
+目の疲れが強い場合や症状が続く場合は、眼科などの医療機関に相談しましょう。
+## 5. 昼休みに軽い運動を取り入れる
+在宅ワークでは、意識しなければ外出する機会が少なくなることがあります。
+そこで、昼休みなどを利用して短時間のウォーキングを取り入れる方法があります。
+例えば、昼食後に近所を10分程度歩く、買い物を兼ねて外出するなど、日常生活に組み込むと続けやすくなります。
+外出が難しい日は、室内での足踏みや軽い体操でも構いません。
+大切なのは、無理のない範囲で体を動かす機会を増やすことです。
+## 6. 仕事と休憩の時間を分ける
+自宅で仕事をしていると、仕事と私生活の境界が曖昧になりやすい場合があります。
+休憩を取らずに作業を続けたり、終業後も仕事のことを考え続けたりすると、十分に休めないことがあります。
+そのため、始業時間・休憩時間・終業時間をあらかじめ決めておくとよいでしょう。
+例えば、午前中に集中して作業し、昼休みにはパソコンから離れるなど、時間帯ごとに行動を切り替える方法があります。
+また、終業後に散歩や読書などの時間を設けることで、仕事から私生活へ気持ちを切り替えるきっかけになります。
+## 7. 睡眠時間を確保する
+健康的に働き続けるためには、十分な睡眠も欠かせません。
+睡眠時間には個人差がありますが、成人では一般的に6時間以上を目安として、必要な睡眠時間を確保することが推奨されています。
+また、睡眠時間だけでなく、起床時に休養感があるかどうかも重要です。
+睡眠環境を整えるために、次のような工夫を取り入れてみましょう。
+- 就寝前は仕事を控える
+- 寝室の温度や明るさを調整する
+- 夕方以降のカフェイン摂取に注意する
+- 休日も生活リズムを大きく崩さない
+十分に眠っているつもりでも、日中の強い眠気や疲労が続く場合は、医療機関への相談を検討してください。
+## まとめ
+在宅ワークでは、通勤がなくなることで活動量が減ったり、仕事と休憩の切り替えが難しくなったりする場合があります。
+健康管理のために、特別な運動や大きな生活改善を一度に始める必要はありません。
+まずは、こまめに立ち上がる、昼休みに少し歩く、睡眠時間を確保するなど、取り入れやすい習慣から始めてみましょう。
+自分の体調や生活スタイルに合わせて、無理なく続けられる方法を見つけることが大切です。
+</script>
+
+<script type="text/plain" id="a-freelance" data-genre="仕事・キャリア" data-title="フリーランスを始める前に知っておきたい、現実的な3つのこと">
+## フリーランスへの期待と現実
+「自分のペースで働ける」「頑張った分だけ収入を増やせる」
+フリーランスという働き方に、こうした魅力を感じる方も多いでしょう。
+一方で、毎月決まった給与が支払われるわけではなく、仕事の獲得から経理処理まで、自分で管理する必要があります。
+独立してから後悔しないために、事前に知っておきたい3つのポイントを解説します。
+## 1. 収入が安定するまでには時間がかかる
+フリーランスの収入は、受注する案件の数や単価によって変動します。
+特に独立直後は、継続的に仕事を依頼してくれるクライアントが少なく、月によって収入に大きな差が出ることもあります。
+例えば、月20万円の収入を目標にしていても、案件の終了や発注の延期によって、予定どおりの金額を得られるとは限りません。
+そのため、独立前には一定の生活資金を確保しておくことが重要です。
+生活費の6ヶ月分程度を一つの目安としながら、税金・社会保険料・事業経費も含めて必要な資金を計算しましょう。
+必要な貯蓄額は、生活環境や仕事の見通しによって異なります。
+## 2. 営業や経理も仕事の一部になる
+フリーランスは、専門業務だけをしていればよいわけではありません。
+案件の獲得、クライアントとの連絡、スケジュール管理、請求書の発行、確定申告など、さまざまな業務が発生します。
+例えば、ライターとして1日5時間働いていても、そのすべてを記事の執筆に使えるとは限りません。
+案件探しや打ち合わせ、修正対応などにも時間が必要です。
+こうした作業を効率化するには、早い段階で仕組みを整えることが役立ちます。
+- 会計ソフトで収入と経費を管理する
+- 請求書のテンプレートを用意する
+- カレンダーで納期を一元管理する
+- 定型的な連絡文を保存しておく
+必要に応じて専門家への外注も検討し、本業に集中できる環境を作ることが大切です。
+## 3. 副業から始めるとリスクを抑えられる
+フリーランスに興味があっても、すぐに会社を辞める必要はありません。
+現在の仕事を続けながら、副業として小さな案件に取り組む方法もあります。
+例えば、Webライターを目指す場合は、クラウドソーシングサービスで記事作成の案件に応募し、仕事の流れを経験することから始められます。
+実際に取り組むことで、必要な作業時間や自分の得意分野、無理なく対応できる案件数などが見えてきます。
+また、継続的な依頼を受けられるようになれば、独立後の収入を見通す材料にもなります。
+ただし、副業を始める際は勤務先の就業規則や労働時間、税金に関するルールも確認しておきましょう。
+収入を確保しながら経験を積むことは、独立に伴うリスクを抑える方法の一つです。
+## まとめ
+フリーランスには、働く時間や仕事を選びやすいという魅力があります。
+一方で、収入の変動や事務作業への対応など、会社員とは異なる準備が必要です。
+独立を考えている方は、まず生活資金を確認し、必要な業務を把握したうえで、副業などを通じて経験を積むことから始めてみてはいかがでしょうか。
+自分に合った働き方を見極めながら、無理のない計画を立てることが大切です。
+</script>
+
+<script type="text/plain" id="a-minimal" data-genre="暮らし・ライフスタイル" data-title="モノを減らして暮らしを整える5つのコツ｜無理なく続ける整理術">
+「部屋をすっきりさせたいけれど、何から手をつければいいか分からない」「片付けても、すぐにモノが増えてしまう」
+そんな悩みを抱えている方もいるのではないでしょうか。
+モノを減らすことは、単に持ち物を捨てることではありません。自分にとって必要なモノを見極め、管理しやすい暮らしをつくることが目的です。
+この記事では、無理なくモノを減らし、すっきりした部屋を維持するための5つのコツを紹介します。
+## 1. まずは小さな場所から始める
+部屋全体を一度に片付けようとすると、作業量の多さに負担を感じることがあります。
+最初は、引き出し1段や財布の中、洗面台の収納など、短時間で整理できる場所から始めましょう。
+例えば、引き出しを整理する場合は、中身をすべて取り出して、使っているモノと使っていないモノに分けます。
+不要なモノを取り除いたら、残すモノを使いやすい位置に戻します。
+小さな場所でも整理を終えることで、次の片付けに取り組みやすくなります。
+## 2. モノを手放す基準を決める
+片付けが進まない原因の一つは、何を残すか判断できないことです。
+そこで、あらかじめ判断基準を決めておくと整理しやすくなります。
+例えば、次のような基準が考えられます。
+- 1年以上使っていない
+- 同じ用途のモノを複数持っている
+- 壊れていて使用できない
+- 現在の生活スタイルに合っていない
+ただし、使用頻度だけで判断する必要はありません。
+防災用品や冠婚葬祭用の衣類など、普段は使わなくても必要なモノがあります。
+大切なのは、使用頻度だけでなく、今後の必要性も含めて判断することです。
+## 3. 迷ったモノは保留にする
+「使っていないけれど、捨てるのはもったいない」と感じるモノもあるでしょう。
+そのような場合は、無理に処分せず、保留用の箱を用意する方法があります。
+迷っているモノを箱にまとめ、見直す日を決めておきます。
+一定期間が過ぎたら、実際に使ったか、今後必要になるかを改めて確認しましょう。
+一度時間を置くことで、必要性を落ち着いて判断しやすくなります。
+ただし、保留用の箱が増え続けると収納を圧迫するため、箱の数や保管期間には上限を設けることが大切です。
+## 4. モノの定位置を決める
+不要なモノを減らしても、収納場所が決まっていなければ部屋は散らかりやすくなります。
+そこで、日常的に使うモノには定位置を設けましょう。
+例えば、鍵は玄関のトレー、郵便物は専用のボックス、充電器はデスクの引き出しなど、使う場所に近い位置に収納すると便利です。
+また、収納スペースに余裕を持たせることも重要です。
+収納を詰め込みすぎると、必要なモノを取り出しにくくなり、片付けの負担が増えてしまいます。
+使いやすさを優先して収納方法を考えることで、整理された状態を維持しやすくなります。
+## 5. 新しいモノを増やす前に確認する
+片付けた状態を長く維持するには、モノを減らすだけでなく、増やしすぎない工夫も必要です。
+買い物をする前に、次の3点を確認してみましょう。
+- 同じ用途のモノをすでに持っていないか
+- 購入後、どこに収納するか
+- 一時的な欲しさではなく、継続して使う予定があるか
+例えば、便利そうなキッチン用品を見つけても、似た機能の道具をすでに持っている場合があります。
+購入前に手持ちのモノを確認することで、重複した買い物を防ぎやすくなります。
+また、必要なモノまで我慢する必要はありません。暮らしを快適にするために、本当に必要なモノを選ぶことが大切です。
+## まとめ
+モノを減らすことは、持ち物の数を競うことではありません。
+自分にとって必要なモノを残し、使いやすく管理できる状態をつくることが目的です。
+まずは小さな場所から整理を始め、手放す基準や収納場所を決めてみましょう。
+無理のない方法を少しずつ取り入れることで、整理された暮らしを維持しやすくなります。
+</script>
+
+<script type="text/plain" id="a-journey" data-genre="コラム・体験談" data-title="ライター業を始めて気づいた、「書くこと」の本当の難しさ">
+## 「書くのが好き」と「伝わる文章を書く」は違う
+ライターの仕事を始めて気づいたのは、文章を書くことと、読者に伝わる文章を書くことは違うということです。
+自分の考えを自由に書くのであれば、思いついた順番に言葉を並べても問題ありません。しかし、Web記事ではそうはいきません。
+読者が何を知りたいのか、どの順番で説明すれば理解しやすいのかを考える必要があります。
+自分が書きたいことではなく、読者が知りたいことを届ける。
+この視点を持つことが、ライターとして最初に感じた難しさでした。
+## 1. 書く前の準備に時間がかかる
+実際に記事を作成してみると、文章を書いている時間よりも、情報を調べたり構成を考えたりする時間が長くなることがあります。
+特に、知識が十分でないテーマでは、まず自分自身が内容を理解しなければなりません。
+調べた情報が正しいかを確認し、必要な内容を整理してから、ようやく執筆に取りかかれます。
+また、情報を集めるだけでは記事になりません。
+読者にとって必要な情報を選び、どの順番で伝えるかを決める作業も重要です。
+最近はAIツールを活用して情報整理や構成案の作成を効率化していますが、内容の正確性を確認することは欠かせません。
+文章の質は、書き始める前の準備にも左右される。
+ライティングに取り組むなかで、そう感じるようになりました。
+## 2. 知っていることを分かりやすく説明するのは難しい
+自分では理解しているつもりでも、文章にすると説明が足りなかったり、専門用語を使いすぎたりすることがあります。
+例えば、ITに関する記事では、普段からパソコンを使っている人には当たり前の言葉でも、初心者には伝わらない場合があります。
+そのため、記事を書くときは「初めて読む人でも理解できるか」を意識するようにしています。
+具体的には、次のような点を確認しています。
+- 専門用語には必要に応じて説明を加える
+- 一文に多くの情報を詰め込まない
+- 抽象的な説明には具体例を添える
+- 同じ内容を繰り返していないか確認する
+文章を書き終えたあとに読み返すと、不要な言葉や説明不足に気づくことも少なくありません。
+書くことだけでなく、読み直して整えることもライターの重要な仕事だと感じています。
+## 3. 読者の立場で考えることが欠かせない
+ライティングで特に意識しているのは、読者の疑問を置き去りにしないことです。
+例えば、便利なサービスを紹介する記事で「簡単に利用できます」と書くだけでは、何が簡単なのか伝わりません。
+「専用アプリのインストールが不要」「普段使っているLINEから申し込める」など、具体的な内容を示すことで、読者は利用する場面を想像しやすくなります。
+実際に、薬局のLINE調剤受付サービスについて体験記事を作成した際には、利用方法だけでなく、以前と比べて待ち時間がどのように変わったのかを具体的に伝えることの重要性を学びました。
+自分にとって当たり前の経験でも、数字や行動の変化を加えることで、読み手に伝わりやすくなります。
+こうした工夫を積み重ねることが、文章の説得力につながると考えています。
+## おわりに｜書くことは、伝えること
+ライターの仕事を始めてから、文章に対する考え方が変わりました。
+以前は、文章を書くこと自体に意識が向いていました。しかし今は、書いた文章が相手にどう伝わるかを考えるようになっています。
+情報を正確に調べること、分かりやすく整理すること、読者の立場で読み直すこと。
+どれも地道な作業ですが、記事の質を高めるためには欠かせません。
+まだ学ぶことは多いものの、一つひとつの経験を次の執筆に生かしながら、読者にとって価値のある文章を書けるライターを目指していきたいと思います。
+</script>
+
+<script type="text/plain" id="a-aiwriting" data-genre="AI・IT" data-title="AIと協働する文章作成術｜すぐに使えるプロンプト実践テクニック">
+## AIは文章を書くための補助ツール
+生成AIの普及によって、文章作成の方法は大きく変化しています。
+記事のアイデア出しから構成案の作成、文章の推敲まで、さまざまな工程でAIを活用できるようになりました。
+一方で、AIが生成した文章をそのまま公開すればよいわけではありません。内容が正しいか、読者の疑問に答えているか、読みやすい表現になっているかを確認する必要があります。
+重要なのは、AIにすべてを任せるのではなく、人間が目的と品質を管理することです。
+この記事では、Webライティングで活用できる具体的なプロンプトと、AIを使う際の注意点を紹介します。
+## 1. アイデア出し｜記事の切り口を広げる
+記事のテーマが決まっていても、どのような内容にすればよいか迷うことがあります。
+そんなときは、AIに複数の切り口を提案してもらうと、発想を広げるきっかけになります。
+> あなたはWebメディアの編集者です。
+> 「在宅ワークの運動不足対策」をテーマに記事を作成します。
+> 想定読者は、在宅勤務を始めたばかりの30〜40代です。
+> 読者が抱えやすい悩みを5つ挙げ、それぞれに対応する記事の切り口を提案してください。
+> 専門知識がなくても理解でき、日常生活で実践しやすい内容を優先してください。
+このように、テーマだけでなく、想定読者や記事の目的を伝えることで、方向性を絞った提案を得やすくなります。
+ただし、AIの提案をすべて採用する必要はありません。
+実際の読者ニーズや記事の目的に照らし合わせ、必要なものを選びましょう。
+## 2. 構成作成｜情報を分かりやすい順番に整理する
+記事の読みやすさは、文章の表現だけでなく、情報を伝える順番にも左右されます。
+AIに構成案を作成してもらう場合は、読者が記事を読み終えたときに何を理解してほしいのかを指定すると効果的です。
+> あなたはSEOを意識したWebライターです。
+> 「フリーランスを始める前の準備」というテーマで、初心者向けの記事構成を考えてください。
+> 【条件】
+> ・想定文字数：2,000文字
+> ・読者：独立を検討している会社員
+> ・目的：独立前に確認すべき事項を理解してもらう
+> ・見出し：H2とH3を使用
+> ・内容：収入、生活資金、税金、仕事の獲得方法を含める
+> 見出し案と、各見出しで説明する内容を簡潔に提示してください。
+構成案ができたら、説明の重複や不足がないかを確認します。
+特に、読者が最初に知りたい情報が後半に回っていないか、見出しだけで内容を把握できるかを見直すことが重要です。
+## 3. 推敲｜読みにくい文章を見つける
+文章を書き終えたあとにも、AIを活用できます。
+例えば、一文が長すぎる箇所や、説明が分かりにくい箇所を指摘してもらう方法です。
+> 以下の文章を、Web記事の編集者として確認してください。
+> 【確認項目】
+> 1. 一文が長すぎる箇所
+> 2. 意味が伝わりにくい表現
+> 3. 同じ内容の繰り返し
+> 4. 説明が不足している箇所
+> 元の文章の意図を尊重し、改善が必要な箇所と修正理由を示してください。
+> 事実関係を変更したり、元の文章にない情報を追加したりしないでください。
+> 【本文】
+> （ここに文章を貼り付ける）
+AIに文章全体を書き直してもらうだけでは、修正理由が分からない場合があります。
+改善点と理由を確認することで、自分自身の文章力を高めることにもつながります。
+## 4. AIを活用する際の3つの注意点
+AIは便利なツールですが、利用時には注意も必要です。
+### 事実確認を省略しない
+生成AIは、もっともらしい誤情報を出力することがあります。
+特に、統計データ、法律、制度、サービスの料金などは、公式サイトや公的機関の資料を確認しましょう。
+AIの回答だけを根拠に記事を作成しないことが重要です。
+### 機密情報や個人情報を入力しない
+クライアントから提供された未公開情報や個人情報を、許可なくAIに入力してはいけません。
+利用するサービスのデータ管理方針を確認し、必要に応じて情報を匿名化するなどの対策が求められます。
+### クライアントのAI利用ルールを守る
+ライティング案件によっては、生成AIの使用を禁止していたり、利用範囲を制限していたりする場合があります。
+作業前に依頼条件を確認し、許可された範囲で活用しましょう。
+## まとめ｜AIを使いこなすには、判断力が必要
+生成AIは、アイデア出し、構成作成、推敲など、文章作成のさまざまな工程を支援してくれます。
+効果的に活用するためには、テーマや読者、目的、出力条件を具体的に伝えることが重要です。
+一方で、情報の正確性や文章の品質について、最終的な責任を持つのはライター自身です。
+AIに作業を補助してもらい、人間が内容を判断して仕上げる。
+この役割分担を意識することで、文章の品質を保ちながら、効率的に制作を進められるでしょう。
+</script>
+
+<script type="text/plain" id="s-night" data-genre="シナリオ・Webドラマ" data-title="Webドラマ「夜の改札で」第1話より">
+## 作品概要
+タイトル：「夜の改札で」（全3話）
+ジャンル：短編Webドラマ
+あらすじ：広告代理店で働く田中沙也（26歳）は、仕事の行き詰まりを感じながら日常をこなしていた。ある夜、終電間際の駅で偶然ぶつかったフリーランスエンジニアの川口誠（29歳）との出会いが、彼女が見て見ぬふりをしていた「本当にやりたいこと」への扉を開くきっかけになる。
+## 登場人物
+田中 沙也（たなか さや）　26歳。広告代理店の営業職。仕事の評価は悪くないが、自分が何をしたいのか分からなくなっている。
+川口 誠（かわぐち まこと）　29歳。フリーランスのエンジニア。大手企業を辞めて独立した経緯を持つ。飾らない話し方が特徴。
+## 第1話「あと少しだけ」より抜粋
+○ 都内の駅前 — 夜
+夜10時すぎ。コーヒーチェーンの明かりが残る路地。疲れた顔の沙也が、スマートフォンを見つめながら立っている。
+沙也（心の声）　三回目のリテイク……あの部長、何がしたいんだろ。
+スマートフォンを鞄にしまい、一歩踏み出そうとした瞬間、肩が誰かにぶつかる。
+沙也　あ、すみません！
+川口　こちらこそ。……ノートパソコン、大丈夫でした？
+沙也　え？ あ、はい。（確認する）大丈夫です。
+川口　よかった。ここ、人が多いのに道が狭くて。
+沙也　（苦笑）私もぼーっとしてました。
+しばらく沈黙。どちらも動かない。
+川口　なんか……顔、疲れてますね。
+沙也　（驚く）え。いきなりですね。
+川口　すみません。余計なことを。
+沙也　（少し考えてから）……そうかもしれません。
+川口、すこし驚いたように沙也を見る。
+沙也（心の声）　なんで、初めて会った人に、正直に言えたんだろ。
+遠くで電車の音。
+○ 同・改札前のベンチ — 夜
+気づけば二人、駅のベンチに並んで座っている。
+川口　今の仕事、好きですか？
+沙也　……突然ですね。
+川口　聞いてみたくなって。
+沙也　（少し間を置いて）向いてると思います。でも、好きかどうかは……分からなくなってきました。
+川口　それ、聞けてよかった。
+沙也　え？
+川口　「分からない」って言える人、なかなかいないから。
+沙也、川口の言葉の意味を考えるように黙る。
+沙也（心の声）　この人、何者なんだろ。
+スマートフォンに通知が届く。沙也、画面を見て立ち上がる。
+沙也　すみません、もう行かないと。……今日は、ありがとうございました。
+川口　またどこかで。
+沙也、改札に向かいながら一度振り返る。川口はもう、スマートフォンを開いている。
+沙也（心の声）　また、会えるかな。
+改札を抜け、沙也の姿が消える。川口、小さく笑う。
+——第1話・了
+</script>
+
+<script type="text/plain" id="s-ep1" data-genre="シナリオ・全3話" data-title="私を捨てた元彼の前に、億万長者の婚約者が現れた　第1話「婚約破棄と謎の御曹司」" data-next="s-ep2">
+○ SCENE 1｜高級ホテル・宴会場／夜
+豪華なシャンデリアが輝く宴会場。
+美月は淡いピンク色のドレスをまとい、婚約者の拓海の隣に立っている。
+会場には百人を超える招待客。
+今日は二人の結婚を発表するパーティーのはずだった。
+拓海がマイクを手に取る。
+拓海　「本日はお集まりいただき、ありがとうございます。皆様に大切なご報告があります」
+美月が幸せそうに微笑む。
+美月（心の声）　「五年間、いろいろなことがあった。でも今日から、私たちは新しい家族になる」
+拓海が美月を振り返る。
+その表情には、笑みがない。
+拓海　「美月。お前との婚約は、今日で終わりだ」
+美月の笑顔が凍りつく。
+美月　「……え？」
+会場がざわめく。
+拓海　「俺が結婚するのは、お前じゃない」
+拓海が手を差し出す。
+招待客の間から、真っ赤なドレスを着た女性が現れる。
+美月　「……玲奈？」
+大学時代からの親友、東条玲奈だった。
+玲奈は拓海の腕に絡みつく。
+玲奈　「ごめんね、美月。でも、恋愛って選ばれた方が勝ちでしょう？」
+美月　「どういうこと……？」
+玲奈　「私たち、もう半年も付き合ってるの」
+美月は拓海を見つめる。
+美月　「拓海……嘘だよね？」
+拓海　「本当だ。玲奈の父親は東条グループの会長だ。俺の会社にとって、これ以上ない縁談なんだよ」
+美月　「会社のために……私を捨てるの？」
+拓海　「お前と結婚して、俺に何の得がある？」
+美月は言葉を失う。
+拓海　「家柄も財産もない。ただの会社員のお前が、俺の将来に何をしてくれるんだ？」
+招待客たちのひそひそ話が広がる。
+招待客A　「相手は東条家のお嬢様でしょう？」
+招待客B　「それなら、仕方ないんじゃない？」
+美月はドレスの裾を握りしめる。
+美月（心の声）　「このドレスも、今日のために選んだのに。拓海が好きだと言ってくれた色だったのに……」
+○ SCENE 2｜同・宴会場
+玲奈が美月に近づく。
+玲奈　「ねえ、そのドレス、まだ着てるの？　もう必要ないんだから、早く脱いだら？」
+美月　「玲奈……あなた、私の友達だったでしょう？」
+玲奈　「友達？」
+玲奈が小さく笑う。
+玲奈　「ずっと不思議だったのよ。どうして何も持っていないあなたが、そんなに幸せそうなのかって」
+美月　「……」
+玲奈　「だから、欲しくなっちゃった。あなたの幸せ、全部」
+美月が拓海を見る。
+拓海は何も言わない。
+美月はゆっくりと婚約指輪を外す。
+美月　「……分かった。婚約は終わりにしましょう」
+指輪を拓海の手に置く。
+拓海　「ようやく理解したか」
+美月　「でも、一つだけ訂正させて」
+拓海が眉をひそめる。
+美月　「私は、あなたの将来に貢献するために結婚しようとしたんじゃない」
+美月は涙をこらえながら続ける。
+美月　「あなたと一緒に生きていきたかっただけ」
+一瞬、拓海の表情が揺らぐ。
+美月　「その気持ちを笑う人と、結婚しなくてよかった」
+美月は背を向ける。
+玲奈が慌てて呼び止める。
+玲奈　「待って、美月！」
+玲奈は美月の腕をつかみ、耳元でささやく。
+玲奈　「最後に教えてあげる。拓海があなたにプロポーズしたのも、私が頼んだからなの」
+美月　「……え？」
+玲奈　「一番幸せな日に、全部奪ってあげたかったの」
+美月の目が大きく見開かれる。
+その瞬間――。
+謎の男　「ずいぶんと、品のない余興だな」
+○ SCENE 3｜宴会場・入口
+低く、落ち着いた声。
+会場中の視線が入口へ集まる。
+黒いスーツを着た長身の男性が立っている。
+その後ろには数人の秘書。
+招待客A　「……あの人、まさか」
+招待客B　「神崎ホールディングスの神崎蓮!?」
+拓海の顔色が変わる。
+拓海　「か、神崎様……！」
+神崎蓮は拓海に目もくれず、美月へ歩み寄る。
+蓮　「遅くなってすまない」
+美月　「……え？」
+蓮　「迎えに来た」
+美月は戸惑う。
+美月　「あの……どちら様でしょうか？」
+蓮の表情がわずかに曇る。
+しかし、すぐに穏やかな笑みを浮かべた。
+蓮　「今は、それでいい」
+蓮が美月の肩に自分の上着をかける。
+蓮　「寒かっただろう」
+美月　「いえ、あの……」
+拓海が慌てて近づく。
+拓海　「神崎様！　これは、その……誤解なんです！」
+蓮が拓海を振り返る。
+蓮　「君が、彼女の婚約者だった男か」
+拓海　「は、はい！　ですが、たった今、婚約は解消しまして……」
+蓮　「知っている。すべて見ていた」
+拓海が青ざめる。
+蓮は美月の手を取る。
+蓮　「皆さんに紹介しよう」
+会場が静まり返る。
+蓮　「彼女は、私が長年探し続けていた女性だ」
+玲奈が目を見開く。
+玲奈　「……そんな、嘘でしょう？」
+蓮は美月を見つめる。
+蓮　「そして、私の未来の妻になる人だ」
+美月　「ええっ!?」
+美月が思わず声を上げる。
+蓮は顔を近づけ、小声で告げる。
+蓮　「今は話を合わせてくれ。詳しいことは後で説明する」
+美月　「でも、私たち……」
+蓮　「君は覚えていないかもしれない。だが、私は一度も忘れたことがない」
+美月の胸が小さく高鳴る。
+○ SCENE 4｜同・宴会場
+拓海が引きつった笑みを浮かべる。
+拓海　「神崎様、その女性はごく普通の会社員でして……」
+蓮の目が冷たくなる。
+蓮　「それが何か？」
+拓海　「い、いえ……」
+蓮　「君は人の価値を、家柄と財産で決めるのか？」
+拓海は答えられない。
+蓮は静かに続ける。
+蓮　「君の会社は来月、我がグループとの契約更新を控えていたな」
+拓海　「は、はい！」
+蓮　「今日の件と取引は別の話だ。ただ、君の誠実さには疑問を持った」
+拓海の額に汗が浮かぶ。
+蓮　「契約条件を含め、改めて精査させてもらう」
+拓海　「お、お待ちください！」
+蓮は振り返らない。
+美月の手を優しく握る。
+蓮　「帰ろう、美月」
+美月　「どうして……私の名前を？」
+蓮は一瞬だけ、切なそうに微笑む。
+蓮　「十年前、君が私に言った言葉を覚えているか？」
+美月　「……十年前？」
+蓮　「『一人で泣かなくていいよ』」
+美月の目が大きく見開かれる。
+遠い記憶の中で、雨に濡れた少年の姿がよみがえりかける。
+蓮　「今度は、私が君を守る番だ」
+蓮が美月の手を引き、会場を後にする。
+取り残された拓海と玲奈。
+玲奈　「どういうことよ……。あの美月が、神崎蓮と……？」
+拓海は青ざめたまま、二人が去った扉を見つめている。
+美月（心の声）　「十年前……。まさか、あの雨の日の男の子が……？」
+暗転。
+——第1話・完　次回、第2話「冷酷な御曹司の甘すぎる秘密」
+</script>
+
+<script type="text/plain" id="s-ep2" data-genre="シナリオ・全3話" data-title="私を捨てた元彼の前に、億万長者の婚約者が現れた　第2話「冷酷な御曹司の甘すぎる秘密」" data-prev="s-ep1" data-next="s-ep3">
+○ SCENE 1｜高級ホテル・エントランス／夜
+華やかなパーティー会場を後にした美月と蓮。
+ホテルのエントランスには、黒塗りの高級車が停まっている。
+蓮は美月の手を握ったまま、車へと歩いていく。
+美月　「あ、あの！　ちょっと待ってください！」
+蓮が足を止める。
+蓮　「どうした？」
+美月　「どうしたって……！　さっきの、どういうことですか？　未来の妻って……！」
+蓮は少し考えるように視線を落とした。
+蓮　「すまない。勝手なことを言った」
+美月　「本当にびっくりしたんですから！」
+蓮　「だが、あの場で君を一人にしたくなかった」
+その声は、先ほど拓海に向けたものとは別人のように優しかった。
+美月　「……どうして、そこまでしてくれるんですか？」
+蓮は美月を見つめる。
+蓮　「君に、ずっと会いたかったからだ」
+美月の心臓が跳ねる。
+美月　「ずっと……？」
+蓮　「十年前の雨の日を覚えているか？」
+美月は首をかしげた。
+蓮　「駅の裏に、小さな公園があった。大きな桜の木が一本だけ立っている公園だ」
+その言葉を聞いた瞬間、美月の脳裏に懐かしい風景が浮かんだ。
+○ SCENE 2｜十年前・公園／夕方・雨
+激しい雨が降っている。
+十八歳の美月が、傘を差して公園の前を通りかかる。
+ふと、桜の木の下に座り込む少年に気づく。
+制服姿の少年は、雨に濡れたまま俯いていた。
+美月（18歳）　「ねえ、大丈夫？」
+少年は顔を上げない。
+少年　「……放っておいてくれ」
+美月　「でも、びしょ濡れだよ」
+少年　「いいんだ。俺なんか、どうなっても」
+美月は少し迷ったあと、少年の隣にしゃがみ込んだ。
+自分の傘を、少年の方へ傾ける。
+美月　「何か、嫌なことがあったの？」
+少年は唇をかみしめる。
+少年　「……母さんが死んだ」
+美月は息をのむ。
+少年　「父さんは仕事ばかりで、病院にも来なかった。俺が何を言っても、誰も聞いてくれない」
+雨音だけが二人を包む。
+少年　「こんな家に生まれなければよかった」
+美月はしばらく黙っていた。
+そして、そっと口を開く。
+美月　「……つらかったね」
+少年の肩が小さく震える。
+美月　「私には、お母さんの代わりにはなれないし、あなたの家のことも分からない」
+美月は傘を握り直した。
+美月　「でも、一人で泣かなくていいよ」
+少年が顔を上げる。
+美月　「誰かに話したいときは、話していいんだよ」
+少年の頬を、雨とは違う雫が伝った。
+少年　「……名前は？」
+美月　「美月。佐伯美月」
+少年　「俺は……蓮」
+美月が微笑む。
+美月　「蓮くん。風邪ひいちゃうよ。屋根のあるところに行こう？」
+美月は少年に手を差し伸べた。
+蓮はその手を見つめ、ゆっくりと握り返した。
+○ SCENE 3｜現在・高級車の車内／夜
+窓の外を街の明かりが流れていく。
+美月は隣に座る蓮を、信じられないという表情で見つめていた。
+美月　「……あのときの、蓮くん？」
+蓮　「ようやく思い出してくれたか」
+蓮が穏やかに微笑む。
+美月　「でも、どうして……？」
+蓮　「あの日、君は俺を駅まで送ってくれた。自分の傘まで置いて」
+美月　「あ……そうだったかも」
+蓮　「翌日、公園へ行った。礼を言いたかったんだ」
+蓮は窓の外へ視線を向ける。
+蓮　「だが、君には会えなかった。しばらくして俺は海外へ移った」
+美月　「そうだったんだ……」
+蓮　「君の名前だけは、ずっと覚えていた」
+美月は胸が温かくなるのを感じた。
+美月　「でも、あんな小さなことで……」
+蓮はすぐに首を横に振った。
+蓮　「小さなことじゃない」
+美月をまっすぐ見つめる。
+蓮　「あの日の俺には、誰かが隣にいてくれることが、何より必要だった」
+美月は何も言えなくなる。
+蓮　「帰国してから、偶然君の名前を見つけた。今日のパーティーに招待されていた知人から、君が婚約することも聞いた」
+美月　「じゃあ、どうして会場に……？」
+蓮は少し気まずそうに目を伏せた。
+蓮　「祝福するつもりだった。君が幸せなら、それでいいと思っていた」
+美月　「……」
+蓮　「だが、あんなことになるとは思わなかった」
+蓮の表情が険しくなる。
+蓮　「君を傷つけたあの男を、許せそうにない」
+美月は小さく首を振った。
+美月　「……もういいんです」
+蓮　「美月？」
+美月　「悲しいけど……あんな人と結婚しなくてよかったって、今は思います」
+蓮はしばらく美月を見つめた。
+そして、ふっと微笑んだ。
+蓮　「やはり、君は強いな」
+美月は少し照れたように笑った。
+○ SCENE 4｜高級ホテル・スイートルーム／夜
+蓮が案内したのは、ホテルの最上階にあるスイートルームだった。
+大きな窓の向こうには、東京の夜景が広がっている。
+美月　「わあ……すごい……」
+思わず声が漏れる。
+蓮はそんな美月を見て、満足そうに微笑んだ。
+蓮　「気に入ったか？」
+美月　「はい。でも、どうしてここに？」
+蓮　「君が落ち着いて休める場所を用意したかった。ここは俺が仕事で使っている部屋だ」
+蓮はテーブルに置かれた紙袋を指さした。
+蓮　「着替えと必要なものを用意させた。サイズが合うかは分からないが」
+美月が紙袋を開く。
+中には上質なワンピースと、柔らかなルームウェアが入っていた。
+美月　「こんな高そうなもの、受け取れません！」
+蓮　「では、貸すことにしよう」
+美月　「え？」
+蓮　「返すのは、いつでもいい」
+蓮がいたずらっぽく笑う。
+美月は思わず吹き出した。
+美月　「神崎さんって、もっと怖い人だと思っていました」
+蓮　「怖い？」
+美月　「経済誌に『氷の経営者』って書かれていたので」
+蓮が眉を上げる。
+蓮　「そんなふうに呼ばれているのか」
+美月　「ご存じなかったんですか？」
+蓮　「興味がない」
+蓮は美月に一歩近づく。
+蓮　「君にどう思われているかの方が、よほど気になる」
+美月の頬が熱くなる。
+美月　「そ、そういうことを急に言わないでください……」
+蓮が小さく笑った。
+そのとき、美月のお腹が鳴った。
+美月　「……っ！」
+顔を真っ赤にする美月。
+蓮は一瞬驚いたあと、楽しそうに笑った。
+蓮　「そういえば、夕食もまだだったな」
+美月　「わ、忘れてください！」
+蓮　「無理だ。可愛かったから」
+美月　「……！」
+蓮はルームサービスのメニューを手渡す。
+蓮　「好きなものを選んでくれ」
+美月　「でも、こんなにたくさん……」
+蓮　「遠慮はいらない」
+少し間を置いて、蓮が続ける。
+蓮　「君が笑ってくれるなら、俺はそれだけでうれしい」
+美月はメニューから顔を上げた。
+その瞳には、まっすぐな優しさが宿っていた。
+五年間、拓海からこんなふうに見つめられたことがあっただろうか。
+そう考えた瞬間、美月の目に涙が浮かんだ。
+蓮　「美月？」
+美月　「ごめんなさい……なんだか、急に……」
+蓮は慌てず、テーブルからティッシュを取って差し出した。
+蓮　「泣いていい」
+美月が顔を上げる。
+蓮　「今夜は、無理に笑わなくていいから」
+その言葉に、美月の涙がこぼれ落ちた。
+蓮は彼女が落ち着くまで、静かに隣に座っていた。
+○ SCENE 5｜東条家・リビング／同日夜
+豪華なリビング。
+玲奈がソファに座り、スマートフォンを握りしめている。
+画面には、パーティー会場で蓮が美月の手を取る写真。
+玲奈　「何なのよ、これ……！」
+玲奈がスマートフォンをテーブルに叩きつける。
+向かいには拓海が座っていた。
+拓海　「落ち着けよ」
+玲奈　「落ち着けるわけないでしょう！　どうして美月なんかが神崎蓮と知り合いなのよ！」
+拓海　「俺だって知らなかったんだ！」
+拓海は額を押さえる。
+拓海　「神崎グループとの契約が切れたら、うちの会社は……」
+玲奈　「そんなの、お父様に頼めば何とかなるわよ！」
+拓海　「東条グループだって、神崎には逆らえないだろ！」
+玲奈の表情がゆがむ。
+玲奈　「……じゃあ、美月を引き離せばいいのよ」
+拓海が顔を上げる。
+拓海　「何？」
+玲奈　「神崎蓮が美月に興味をなくせば、元どおりになるでしょう？」
+玲奈はスマートフォンを取り上げ、誰かに電話をかける。
+玲奈　「もしもし？　お願いしたいことがあるの」
+唇に冷たい笑みを浮かべる。
+玲奈　「佐伯美月について、調べてほしいの」
+○ SCENE 6｜ホテル・スイートルーム／翌朝
+柔らかな朝日が部屋に差し込む。
+美月はソファで目を覚ました。
+テーブルには、温かい朝食と一枚のメモが置かれている。
+『よく眠れたか？　仕事が終わったら戻る。無理せず休んでいてくれ。――蓮』
+美月はメモを見つめ、自然と微笑んだ。
+美月　「……本当に、優しい人」
+そのとき、スマートフォンが震える。
+見知らぬ番号からのメッセージだった。
+『神崎蓮に近づくのはやめなさい』
+美月の表情がこわばる。
+続けて、もう一通。
+『あなたが彼の隣にふさわしくない理由を、世間に教えてあげる』
+添付されていたのは、一枚の写真。
+十年前の公園で、美月が少年に傘を差し出している写真だった。
+美月　「……どうして、この写真が？」
+さらにメッセージが届く。
+『あの日、神崎蓮の母親が亡くなった本当の理由を、あなたは知らないでしょう？』
+美月は息をのんだ。
+美月　「……どういうこと？」
+画面を見つめる美月。
+その背後で、部屋のドアをノックする音が響いた。
+謎の人物　「佐伯美月様。お話ししたいことがあります」
+美月はゆっくりと立ち上がる。
+ドアの向こうにいるのは、いったい誰なのか。
+そして、十年前の雨の日に隠された真実とは――。
+——第2話・完　次回、最終話「私を捨てた男の末路」
+</script>
+
+<script type="text/plain" id="s-ep3" data-genre="シナリオ・全3話" data-title="私を捨てた元彼の前に、億万長者の婚約者が現れた　第3話「私を捨てた男の末路」" data-prev="s-ep2">
+○ SCENE 1｜高級ホテル・スイートルーム／朝
+静かな部屋に、ノックの音が響く。
+美月はスマートフォンを握りしめたまま、ドアを見つめていた。
+画面には、差出人不明のメッセージ。
+『あの日、神崎蓮の母親が亡くなった本当の理由を、あなたは知らないでしょう？』
+謎の人物　「佐伯美月様。お話ししたいことがあります」
+美月　「……どなたですか？」
+謎の人物　「神崎家に長年お仕えしている、黒田と申します」
+美月は慎重にドアスコープをのぞく。
+そこには、白髪交じりの男性が立っていた。
+黒田　「蓮様から、あなたのことを伺っております。突然の訪問をお許しください」
+美月はドアを少しだけ開ける。
+美月　「神崎さんの……？」
+黒田　「はい。先ほど蓮様から、あなたに不審な連絡が届いていると聞きまして」
+美月は驚く。
+美月　「どうして、それを？」
+黒田　「蓮様にも、同じ写真が送られてきたのです」
+黒田は封筒を差し出した。
+中には、十年前の公園で撮影された写真が入っていた。
+美月が少年に傘を差し出している。
+美月　「これ……」
+黒田　「この写真を撮影したのは、私です」
+美月は顔を上げる。
+黒田　「あの日、私は蓮様を探していました」
+○ SCENE 2｜十年前・公園／夕方・雨
+激しい雨。
+公園の入口に、一台の黒い車が停まる。
+車から降りた黒田は、桜の木の下に座る少年を見つける。
+少年の隣には、傘を差した少女がいた。
+美月（18歳）　「一人で泣かなくていいよ」
+少年が顔を上げる。
+蓮（18歳）　「……名前は？」
+美月（18歳）　「美月。佐伯美月」
+黒田は少し離れた場所で立ち止まる。
+少女は自分の肩を濡らしながら、少年に傘を差し出していた。
+黒田はその光景を、業務用の小型カメラで撮影する。
+黒田（心の声）　「奥様を亡くして以来、誰にも心を開かなかった蓮様が……」
+黒田の目に涙が浮かぶ。
+黒田（心の声）　「どうか、この優しい時間を忘れないでください」
+○ SCENE 3｜現在・ホテルのスイートルーム／朝
+美月は写真を見つめる。
+美月　「……そうだったんですね」
+黒田　「蓮様は、あの日から少しずつ前を向かれるようになりました」
+黒田は静かに続ける。
+黒田　「奥様は長い闘病の末に亡くなられました。蓮様は、ご自分がもっとそばにいれば救えたのではないかと、ずっと悔やんでおられたのです」
+美月　「……」
+黒田　「ですが、奥様の死に事件性はありません。あなたに届いたメッセージは、事実をねじ曲げたものです」
+美月は安堵する。
+美月　「でも、どうして玲奈がこの写真を……？」
+黒田　「それについては、蓮様が調べておられます」
+そのとき、部屋のドアが開く。
+蓮　「黒田。ありがとう」
+美月が振り返る。
+美月　「神崎さん！」
+蓮は美月の顔を見るなり、心配そうに近づいた。
+蓮　「怖い思いをさせたな」
+美月　「大丈夫です。でも、あの写真……」
+蓮　「俺も昨日、久しぶりに見た」
+蓮は写真を手に取る。
+蓮　「帰国したとき、黒田から渡されたんだ。君を探す手がかりになるかもしれないと思って」
+美月　「そうだったんですね」
+蓮　「だが、俺の周囲でこの写真を見られる人間は限られている」
+蓮の表情が険しくなる。
+蓮　「昨日、東条家の関係者が、俺の元秘書に接触したことが分かった」
+美月　「……玲奈が？」
+蓮　「ああ。写真を入手した経緯も、今確認している」
+美月はうつむく。
+美月　「私のせいで、神崎さんまで巻き込んでしまって……」
+蓮　「美月」
+蓮は彼女の目をまっすぐ見つめた。
+蓮　「君のせいじゃない」
+美月　「でも……」
+蓮　「俺が君のそばにいたいと思った。それは俺自身の意思だ」
+蓮は少しだけ微笑む。
+蓮　「それに、君はもう一人で我慢する必要はない」
+美月の胸が熱くなる。
+けれど、彼女は静かに首を振った。
+美月　「……ありがとうございます。でも、私も自分で向き合いたいんです」
+蓮が目を見開く。
+美月　「玲奈にも、拓海にも。今度は逃げずに、自分の言葉で伝えたい」
+蓮はしばらく美月を見つめた。
+そして、誇らしそうに微笑んだ。
+蓮　「分かった。君の意思を尊重する」
+○ SCENE 4｜東条グループ本社・応接室／午後
+大きな窓から、都心の街並みが見える。
+応接室には、拓海と玲奈が座っていた。
+二人の向かいには、神崎蓮。
+その隣には、美月がいる。
+玲奈　「……どうして美月までいるの？」
+美月　「私に関することだから、私も話をしたいの」
+玲奈は鼻で笑った。
+玲奈　「神崎様に守ってもらって、ずいぶん偉くなったのね」
+蓮　「東条さん」
+蓮の低い声が響く。
+蓮　「今日は、あなたに確認したいことがある」
+蓮の秘書がタブレットを操作する。
+画面には、玲奈と元秘書のメッセージのやり取りが表示された。
+玲奈　「……っ！」
+蓮　「この写真を入手するために、金銭を支払いましたね」
+玲奈　「そ、それは……」
+蓮　「さらに、事実と異なる内容の匿名メッセージを送った」
+玲奈は顔をそむける。
+玲奈　「だって……！　美月が悪いんじゃない！」
+美月が静かに顔を上げる。
+美月　「……私が？」
+玲奈　「そうよ！　昔から、あなたばっかり！」
+玲奈が立ち上がる。
+玲奈　「大学でも、みんなあなたのことばかり褒めて！　私は何でも持っていたのに、誰も私を見てくれなかった！」
+美月　「玲奈……」
+玲奈　「だから拓海を奪ったのよ！　あなたが泣くところを見たかった！」
+応接室が静まり返る。
+拓海　「玲奈！　何を言ってるんだ！」
+玲奈　「だって本当のことでしょう！」
+美月は玲奈を見つめた。
+美月　「……そうだったんだね」
+その声は、驚くほど落ち着いていた。
+美月　「私は、玲奈のことを大切な友達だと思ってた」
+玲奈の表情が揺らぐ。
+美月　「あなたがつらい思いをしていたなら、話してほしかった」
+玲奈　「今さら、いい人ぶらないでよ！」
+美月　「いい人になろうとしてるわけじゃない」
+美月はまっすぐに言った。
+美月　「ただ、あなたが私を傷つけたことは、なかったことにはできない」
+玲奈が言葉を失う。
+美月　「私はもう、あなたの友達には戻れない」
+玲奈は唇をかみしめた。
+美月は拓海に向き直る。
+美月　「拓海にも、最後に伝えたいことがある」
+拓海　「美月……」
+美月　「五年間、あなたと過ごした時間を、私は大切にしてた」
+拓海は目を伏せる。
+美月　「でも、あの日の言葉で分かったの。あなたは私を、対等な相手として見ていなかった」
+拓海　「……」
+美月　「もう、あなたの隣に戻ることはない」
+拓海は何も答えられなかった。
+○ SCENE 5｜同・応接室
+蓮が一枚の書類をテーブルに置く。
+蓮　「では、仕事の話をしましょう」
+拓海が慌てて顔を上げる。
+拓海　「神崎様！　今回の件は本当に申し訳ありませんでした！　ですが、契約だけは……！」
+蓮　「契約更新については、すでに審査結果が出ています」
+蓮は書類を開いた。
+蓮　「御社には、以前から納期遅延と品質管理上の問題が報告されていました」
+拓海の顔色が変わる。
+蓮　「改善計画の提出を求めていましたが、期限までに十分な対応が確認できませんでした」
+拓海　「そ、それは……！」
+蓮　「したがって、今回の契約は更新しません」
+拓海は椅子から立ち上がる。
+拓海　「そんな！　契約がなくなったら、うちの会社は……！」
+蓮　「契約を更新できない理由は、御社の業務上の問題です」
+蓮の声は冷静だった。
+蓮　「個人的な感情で判断したわけではありません」
+拓海は力なく椅子に座り込む。
+拓海　「……終わった……」
+玲奈が拓海をにらむ。
+玲奈　「ちょっと！　どうするのよ！　あなたの会社、神崎グループと取引してるから将来性があるって言ったじゃない！」
+拓海　「今それを言うのか!?」
+玲奈　「だって、そんな会社と結婚したって意味ないじゃない！」
+拓海が呆然と玲奈を見つめる。
+拓海　「……お前も、結局は金か」
+玲奈　「当たり前でしょう！」
+美月は二人を静かに見つめていた。
+かつて、あれほど大切だった拓海。
+親友だと信じていた玲奈。
+けれど今は、二人の言葉に心を揺さぶられることはなかった。
+美月（心の声）　「私が失ったのは、幸せじゃなかった。幸せだと思い込んでいた関係だったんだ」
+美月は立ち上がる。
+美月　「……行きましょう、蓮さん」
+蓮が微笑む。
+蓮　「ああ」
+二人は並んで応接室を後にした。
+背後では、拓海と玲奈の言い争う声が続いていた。
+しかし、美月は一度も振り返らなかった。
+○ SCENE 6｜神崎ホールディングス本社・屋上庭園／夕方
+夕暮れの空。
+屋上庭園には、色とりどりの花が咲いている。
+美月は手すりのそばに立ち、街を見下ろしていた。
+蓮が隣に並ぶ。
+蓮　「疲れただろう」
+美月　「……少しだけ」
+蓮は美月に温かい飲み物を差し出した。
+蓮　「よく頑張ったな」
+美月はカップを受け取り、微笑む。
+美月　「ありがとうございます」
+少しの沈黙。
+美月は蓮を見上げた。
+美月　「あの……蓮さん」
+蓮　「何だ？」
+美月　「どうして、そこまで私を大切にしてくれるんですか？」
+蓮はすぐには答えなかった。
+夕日が、彼の横顔を柔らかく照らしている。
+蓮　「最初は、恩返しがしたかった」
+美月は黙って耳を傾ける。
+蓮　「十年前、君は俺に、誰かに頼ってもいいと教えてくれた」
+蓮は静かに続けた。
+蓮　「だから、いつか君が困ったときには、俺が力になりたいと思っていた」
+美月　「……」
+蓮　「だが、再会して分かった」
+蓮が美月に向き直る。
+蓮　「俺は、君に恩返しがしたいだけじゃない」
+美月の心臓が高鳴る。
+蓮　「君が笑うと、俺もうれしい。君が傷つけば、胸が痛む」
+蓮は少し照れたように笑った。
+蓮　「君のことになると、どうにも冷静でいられない」
+美月　「蓮さん……」
+蓮　「美月。俺は、君が好きだ」
+美月の瞳が揺れる。
+蓮　「十年前の思い出だけじゃない。今、目の前にいる君を、もっと知りたい」
+蓮は一歩近づいた。
+蓮　「これからも、君の隣にいたい」
+美月の目に涙が浮かぶ。
+美月　「……私、まだ怖いです」
+蓮は静かにうなずいた。
+美月　「信じていた人に裏切られて、また誰かを好きになるのが怖い」
+蓮　「分かっている」
+美月　「でも……」
+美月は涙をぬぐい、微笑んだ。
+美月　「蓮さんと一緒にいると、安心するんです」
+蓮の表情が柔らかくなる。
+美月　「私も、あなたのことをもっと知りたい」
+蓮はゆっくりと手を差し出した。
+蓮　「では、まずは恋人から始めてくれないか？」
+美月は笑った。
+美月　「……はい。喜んで」
+蓮は美月の手を握り、そっと抱き寄せた。
+蓮　「ありがとう、美月」
+美月　「こちらこそ……蓮さん」
+夕暮れの屋上庭園。
+二人はしばらく、そのまま寄り添っていた。
+○ SCENE 7｜一年後・同じ屋上庭園／夜
+夜景がきらめく屋上庭園。
+美月は蓮に手を引かれ、花々に囲まれたテラスへとやってきた。
+美月　「蓮さん？　今日は何かあるんですか？」
+蓮　「君に、渡したいものがある」
+蓮はポケットから小さな箱を取り出した。
+美月が息をのむ。
+美月　「……え？」
+蓮は美月の前で、片膝をついた。
+箱の中には、一粒のダイヤモンドが輝いている。
+蓮　「美月」
+蓮はまっすぐに彼女を見つめた。
+蓮　「一年前、俺は大勢の前で、君を未来の妻だと紹介した」
+美月は思わず笑う。
+美月　「……あのときは、本当にびっくりしました」
+蓮　「すまなかった。あれは、君の気持ちを確かめずに言ってしまった」
+蓮は少しだけ微笑む。
+蓮　「だから今日は、ちゃんと君に聞きたい」
+美月の瞳に涙が浮かぶ。
+蓮　「俺と結婚してください」
+静かな夜風が吹く。
+美月は両手で口元を覆った。
+一年前。
+同じように華やかな場所で、彼女は婚約を破棄された。
+大勢の前で笑われ、自分には価値がないのだと思いかけた。
+けれど今は違う。
+目の前には、家柄でも財産でもなく、彼女自身を大切にしてくれる人がいる。
+美月　「……はい」
+涙を流しながら、美月は微笑んだ。
+美月　「私でよければ、喜んで」
+蓮が立ち上がり、美月の指に指輪をはめる。
+そして、彼女を強く抱きしめた。
+蓮　「もう、絶対に離さない」
+美月　「ふふっ。ちょっと苦しいです」
+蓮は慌てて腕の力を緩める。
+蓮　「すまない」
+美月は笑いながら、彼の胸に顔を埋めた。
+美月　「でも……もう少しだけ、このままでいてください」
+蓮は優しく微笑む。
+蓮　「もちろん。一生でも構わない」
+美月　「それは長すぎます！」
+二人の笑い声が、夜空に溶けていく。
+○ エピローグ｜数か月後・結婚式場／昼
+白い花々に囲まれたチャペル。
+純白のウェディングドレスをまとった美月が、バージンロードを歩いている。
+その先には、蓮が待っていた。
+彼は美月を見つめ、幸せそうに微笑む。
+蓮　「綺麗だ、美月」
+美月　「ありがとうございます」
+蓮は彼女の手を取る。
+蓮　「十年前、君に出会えてよかった」
+美月は微笑んだ。
+美月　「私も。あの日、あの公園を通ってよかった」
+二人は見つめ合う。
+美月（心の声）　「大切な人に裏切られたあの日、私はすべてを失ったと思っていた」
+蓮が美月のベールを上げる。
+美月（心の声）　「でも、あの日は終わりじゃなかった」
+蓮が優しく微笑む。
+美月（心の声）　「本当の幸せが始まる、最初の日だったんだ」
+二人が誓いのキスを交わす。
+祝福の拍手が響き渡る。
+画面がゆっくりと白く染まっていく。
+——完（全3話・完結）
+</script>
 </body>
 </html>
