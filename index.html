@@ -178,6 +178,10 @@ dialog#reader::backdrop{background:rgba(43,42,51,.45);backdrop-filter:blur(3px)}
 .avatar{position:relative;overflow:hidden}
 .avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 
+.addr{font-size:.88rem;color:var(--muted)}
+.addr code{font-family:var(--f-label);font-weight:600;color:var(--ink);user-select:all;margin-right:8px}
+.copy{font:inherit;font-size:.75rem;padding:2px 10px;border-radius:999px;border:1px solid var(--line);background:#fff;cursor:pointer;color:var(--ink)}
+
 </style>
 </head>
 <body>
@@ -266,10 +270,14 @@ dialog#reader::backdrop{background:rgba(43,42,51,.45);backdrop-filter:blur(3px)}
       <div class="cc-in">
         <p class="eyebrow">Contact</p>
         <h2 id="h-contact">お仕事のご依頼・ご相談はお気軽に</h2>
-        <p id="c-text">ご依頼・ご相談は、このポートフォリオをご覧いただいたサービス（クラウドワークス・ランサーズ）のメッセージからお送りください。内容を確認次第、できる限り早めにご返信いたします。</p>
+        <p data-direct>ご依頼・ご相談は、メールまたは公式LINEからお気軽にどうぞ。内容を確認次第、できる限り早めにご返信いたします。</p>
+        <div class="cover-actions" data-direct><a class="btn pink" href="https://lin.ee/xjIc4MP" target="_blank" rel="noopener">公式LINEで相談する ↗</a></div>
+        <p class="addr" data-direct>メール：<code id="mail">suwaccc1@gmail.com</code><button class="copy" type="button" data-copy="mail">コピー</button></p>
+        <p id="c-text" data-platform-only data-list="クラウドワークス・ランサーズ">ご依頼・ご相談は、クラウドワークス・ランサーズのメッセージからお送りください。内容を確認次第、できる限り早めにご返信いたします。</p>
+        <p class="note" data-direct>クラウドワークス・ランサーズからのご依頼も歓迎しています。</p>
         <div class="cover-actions" id="c-links">
-          <a class="btn pink" data-platform="cw" href="" target="_blank" rel="noopener" hidden>クラウドワークスで相談する ↗</a>
-          <a class="btn pink" data-platform="lancers" href="" target="_blank" rel="noopener" hidden>ランサーズで相談する ↗</a>
+          <a class="btn ghost" data-platform="cw" href="" target="_blank" rel="noopener" hidden>クラウドワークスで相談する ↗</a>
+          <a class="btn ghost" data-platform="lancers" href="" target="_blank" rel="noopener" hidden>ランサーズで相談する ↗</a>
         </div>
       </div>
     </div>
@@ -328,22 +336,38 @@ dialog#reader::backdrop{background:rgba(43,42,51,.45);backdrop-filter:blur(3px)}
   document.getElementById('r-close').addEventListener('click',function(){dlg.close?dlg.close():dlg.removeAttribute('open')});
   dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close()});
 
-  // 依頼窓口：プロフィールのURLをここに入れると、ボタンが表示されます
+  // ===== 窓口の切り替え =====
+  // MODE: 'direct' = 公式LINE・メールを表示 / 'platform' = クラウドソーシング経由のみ
+  // URLに ?from=cw / ?from=lancers / ?from=coconala を付けると、そのサービスだけを案内します（常に platform 表示）
+  var MODE='platform';
   var PROFILE={
     cw:'https://crowdworks.jp/public/employees/6863785',
-    lancers:'https://www.lancers.jp/profile/suwaccc'
+    lancers:'https://www.lancers.jp/profile/suwaccc',
+    coconala:''   // ココナラのプロフィールURLを入れるとボタンが表示されます
   };
-  // URLの末尾に ?from=cw または ?from=lancers を付けると、そのサービスだけを案内します
+  var names={cw:'クラウドワークス',lancers:'ランサーズ',coconala:'ココナラ'};
   var from='';
   try{ from=(new URLSearchParams(location.search).get('from')||'').toLowerCase(); }catch(e){}
-  var names={cw:'クラウドワークス',lancers:'ランサーズ'};
+  if(names[from]) MODE='platform';
+  document.querySelectorAll('[data-direct]').forEach(function(el){ el.hidden=MODE!=='direct'; });
+  document.querySelectorAll('[data-platform-only]').forEach(function(el){ el.hidden=MODE!=='platform'; });
   document.querySelectorAll('[data-platform]').forEach(function(a){
     var p=a.dataset.platform, show=PROFILE[p] && (!names[from] || from===p);
-    if(show){ a.href=PROFILE[p]; a.hidden=false; }
+    a.hidden=!show; if(show) a.href=PROFILE[p];
   });
-  if(names[from]){
-    document.getElementById('c-text').textContent='ご依頼・ご相談は、'+names[from]+'のメッセージからお送りください。内容を確認次第、できる限り早めにご返信いたします。';
+  var ct=document.getElementById('c-text');
+  if(ct && MODE==='platform'){
+    ct.textContent='ご依頼・ご相談は、'+(names[from]||ct.dataset.list)+'のメッセージからお送りください。内容を確認次第、できる限り早めにご返信いたします。';
   }
+  document.querySelectorAll('[data-xlink]').forEach(function(a){
+    a.href = MODE==='direct' ? a.dataset.xdirect : a.dataset.xplatform + (names[from] ? '?from='+from : '');
+  });
+  document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){
+    var t=document.getElementById(b.dataset.copy),x=t.textContent.trim(),orig=b.textContent;
+    var ok=function(){b.textContent='コピーしました';setTimeout(function(){b.textContent=orig},1800)};
+    var sel=function(){var r=document.createRange();r.selectNodeContents(t);var s=getSelection();s.removeAllRanges();s.addRange(r)};
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(x).then(ok,sel)}else sel();
+  })});
 })();
 </script>
 
@@ -1359,5 +1383,6 @@ AIに作業を補助してもらい、人間が内容を判断して仕上げる
 画面がゆっくりと白く染まっていく。
 ——完（全3話・完結）
 </script>
+
 </body>
 </html>
