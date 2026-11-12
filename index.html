@@ -182,6 +182,93 @@ dialog#reader::backdrop{background:rgba(43,42,51,.45);backdrop-filter:blur(3px)}
 .addr code{font-family:var(--f-label);font-weight:600;color:var(--ink);user-select:all;margin-right:8px}
 .copy{font:inherit;font-size:.75rem;padding:2px 10px;border-radius:999px;border:1px solid var(--line);background:#fff;cursor:pointer;color:var(--ink)}
 
+/* ===== AI版：トーンを落ち着かせる（ビビッドなピンクを減らす） ===== */
+:root{
+  --pink:#a8566f; --pink-soft:#f4ecef; --lav:#c9bdf0;
+  --b1:#f1d3dd; --b2:#ddd5f6; --b3:#f6dccb; --b4:#ece6f8;
+  --ink2:#2b2a33;
+}
+.btn.pink{background:var(--ink);border-color:var(--ink)}
+.chips li{background:var(--pink-soft);color:#7d4357}
+.r-ba > div:last-child{background:#f3eff7}
+.r-shot,.col{border-color:var(--line)}
+
+/* ===== 表紙 ===== */
+.hero2{position:relative;margin-top:24px}
+.cv{position:relative;width:100%;aspect-ratio:16/9;max-height:82vh;overflow:hidden;background:#fbfaf9;
+  border:1px solid var(--line);box-shadow:0 30px 70px -40px rgba(70,50,90,.35);container-type:inline-size}
+.cv-bg i{position:absolute;display:block;filter:blur(3.2cqw);opacity:.95;animation:drift 22s ease-in-out infinite alternate}
+.cv-bg i:nth-child(1){left:40%;top:-14%;width:38%;height:70%;background:var(--b2);border-radius:58% 42% 55% 45%/48% 60% 40% 52%}
+.cv-bg i:nth-child(2){left:62%;top:30%;width:40%;height:74%;background:var(--b1);border-radius:44% 56% 40% 60%/55% 42% 58% 45%;animation-duration:26s}
+.cv-bg i:nth-child(3){left:-8%;top:58%;width:34%;height:56%;background:var(--b3);border-radius:50% 50% 38% 62%/60% 46% 54% 40%;animation-duration:24s}
+.cv-bg i:nth-child(4){left:50%;top:52%;width:22%;height:40%;background:#e9c4d3;opacity:.7;border-radius:62% 38% 52% 48%/40% 58% 42% 60%;animation-duration:28s}
+.cv-grain{position:absolute;inset:0;opacity:.35;mix-blend-mode:multiply;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .4  0 0 0 0 .35  0 0 0 0 .45  0 0 0 .18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.cv-frame{position:absolute;inset:2.4cqw;border:1px solid rgba(43,42,51,.12);pointer-events:none}
+.cv-frame::before,.cv-frame::after{content:"";position:absolute;width:1.6cqw;height:1.6cqw;border:1.5px solid var(--ink2)}
+.cv-frame::before{left:-1px;top:-1px;border-right:0;border-bottom:0}
+.cv-frame::after{right:-1px;bottom:-1px;border-left:0;border-top:0}
+.cv-label{position:absolute;left:6%;top:9%;font-family:var(--f-label);font-weight:700;line-height:1.15;color:var(--ink2);z-index:3}
+.cv-label b{display:block;font-size:max(18px,2.4cqw)}
+.cv-label span{display:block;font-size:max(11px,1.25cqw);letter-spacing:.08em;margin-top:.6em}
+.cv-vert{position:absolute;right:3.6%;top:12%;writing-mode:vertical-rl;font-size:max(10px,1cqw);letter-spacing:.5em;color:var(--muted);z-index:3}
+.cv-no{position:absolute;right:6%;bottom:7%;font-family:var(--f-label);font-weight:600;font-size:max(10px,1cqw);letter-spacing:.2em;color:var(--muted);z-index:3}
+.cv-line{position:absolute;inset:0;width:100%;height:100%;z-index:2;overflow:visible;pointer-events:none}
+.cv-line path{fill:none;stroke:var(--pink);stroke-width:1.3;stroke-linecap:round;vector-effect:non-scaling-stroke;stroke-dasharray:3000;stroke-dashoffset:3000;animation:draw 3.6s .2s ease-out forwards}
+.cv-line circle{fill:var(--pink)}
+.cv-sig{position:absolute;left:8.5%;top:25%;font-family:var(--f-hand);color:var(--pink);font-size:max(24px,3.4cqw);line-height:1;z-index:3;transform:rotate(-6deg)}
+.fl{position:absolute;z-index:4;background:rgba(255,255,255,.82);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,.9);border-radius:1.2cqw;padding:1.1cqw 1.3cqw;box-shadow:0 1.6cqw 3.6cqw -1.6cqw rgba(60,40,80,.35);
+  font-size:max(10px,1.05cqw);line-height:1.55;color:var(--ink2);animation:float 7s ease-in-out infinite alternate}
+.fl small{display:flex;align-items:center;gap:.5em;font-family:var(--f-label);font-weight:700;font-size:.82em;letter-spacing:.06em;color:var(--muted);margin-bottom:.35em}
+.fl small i{width:.6em;height:.6em;border-radius:50%;display:inline-block}
+.fl .q{background:#f1f0f3;border-radius:.9em .9em .9em .2em;padding:.45em .7em}
+.fl .a{margin-top:.45em;margin-left:16%;background:#e4f3e8;border-radius:.9em .9em .2em .9em;padding:.45em .7em}
+.fl b.pct{font-family:var(--f-label);color:var(--pink);margin-left:.4em}
+.fl .big{display:block;font-family:var(--f-label);font-weight:700;font-size:1.7em;letter-spacing:.01em;font-variant-numeric:tabular-nums;line-height:1.2}
+.fl svg{display:block;width:100%;height:2.6em;margin-top:.3em;overflow:visible}
+.f1{left:52%;top:9%;width:28%;transform:rotate(-2deg)}
+.f2{left:64%;top:46%;width:26%;transform:rotate(1.5deg);animation-delay:-2s}
+.f3{left:49%;top:64%;width:17%;transform:rotate(-1deg);animation-delay:-4s}
+@keyframes float{from{translate:0 0}to{translate:0 -0.8cqw}}
+.catch2{position:absolute;left:6%;bottom:9%;max-width:min(460px,40%);z-index:5;display:grid;gap:.6em}
+.catch2 .eb{font-family:var(--f-label);font-weight:700;letter-spacing:.16em;font-size:.72rem;color:var(--pink)}
+.catch2 h1{font-size:clamp(1.25rem,2vw,1.75rem);font-weight:900;line-height:1.5}
+.catch2 p{font-size:.88rem;color:#4a4652;line-height:1.85}
+.catch2 .cover-actions{margin-top:.4em}
+@media (max-width:1000px){
+  .catch2{max-width:44%}.catch2 p{display:none}.catch2 .cover-actions{flex-wrap:nowrap}.catch2 .btn{padding:.65em 1.1em;font-size:.82rem}
+}
+@media (max-width:760px){
+  .cv{aspect-ratio:4/5;max-height:none}
+  .cv-label{left:8%;top:6.5%}.cv-label b{font-size:6cqw}.cv-label span{font-size:3.2cqw}
+  .cv-sig{left:12%;top:22.5%;font-size:8cqw}
+  .cv-vert{font-size:2.6cqw;right:5%;top:7%}
+  .cv-no{font-size:2.5cqw;right:7%;bottom:5.5%}
+  .cv-frame{inset:3.5cqw}
+  .fl{font-size:3cqw;border-radius:3cqw;padding:2.6cqw 3cqw;box-shadow:0 4cqw 8cqw -4cqw rgba(60,40,80,.35)}
+  .f1{left:31%;top:30%;width:61%}
+  .f2{left:7%;top:59%;width:53%}
+  .f3{left:64%;top:63%;width:29%}
+  .f3 .big{font-size:1.45em}
+  @keyframes float{from{translate:0 0}to{translate:0 -1.6cqw}}
+  .cv-bg i{filter:blur(7cqw)}
+  .catch2{position:static;max-width:none;padding:28px 4px 0}
+  .catch2 p{display:block}
+  .catch2 h1{font-size:clamp(1.3rem,6.2vw,1.55rem);word-break:keep-all;overflow-wrap:anywhere}
+}
+
+
+/* ライティング版の紙片カード */
+.fl.paper{background:rgba(255,255,255,.9)}
+.fl .ttl{font-weight:700;font-size:1.08em;line-height:1.5}
+.fl .ex{margin-top:.4em;color:#6f6c7a;font-size:.9em}
+.fl s{color:#9a96a2;text-decoration-color:var(--pink);text-decoration-thickness:1.5px}
+.fl .fix{margin-top:.25em;font-weight:700;background:linear-gradient(transparent 62%,#f1d3dd 62%)}
+.fl .ln{display:grid;grid-template-columns:2.6em 1fr;gap:.4em}
+.fl .ln b{color:var(--pink);font-weight:700}
+@media (max-width:760px){.f3.paper{left:57%;width:36%}.fl .ln{grid-template-columns:2.1em 1fr;gap:.3em}}
+
 </style>
 </head>
 <body>
@@ -198,19 +285,27 @@ dialog#reader::backdrop{background:rgba(43,42,51,.45);backdrop-filter:blur(3px)}
 </header>
 
 <main class="wrap" id="top">
-  <div class="cover" role="img" aria-label="表紙：ぬっま Webライティングポートフォリオ">
-    <div class="blobs" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-    <p class="label"><b>2026</b><span>WRITING<br>PORTFOLIO</span></p>
-    <svg class="line" viewBox="0 0 1000 220" preserveAspectRatio="none" aria-hidden="true"><path d="M-20 130 C 40 118, 80 142, 118 128 C 150 116, 128 52, 190 40 C 262 28, 286 118, 222 136 C 176 150, 150 170, 214 168 C 380 176, 520 148, 700 156 S 900 120, 1030 98"/></svg>
-    <span class="sig" aria-hidden="true">ぬっま</span>
-    <div class="catch">
-      <p style="font-family:var(--f-label);font-weight:700;letter-spacing:.14em;font-size:.72rem;color:var(--pink)">WRITING PORTFOLIO</p>
-      <h1>読者に届く文章で、<br>価値あるコンテンツをお届けします。</h1>
-      <p>Webライティングからシナリオ制作まで、丁寧な表現と確かな構成力でコンテンツをお届けするライターのポートフォリオです。</p>
-      <div class="cover-actions"><a class="btn" href="#writing">ライティングを見る →</a><a class="btn ghost" href="#scenario">シナリオを見る →</a></div>
+  <section class="hero2" aria-label="表紙">
+    <div class="cv" role="img" aria-label="表紙：ぬっま Webライティングポートフォリオ。記事、推敲メモ、シナリオの一部をイメージした紙片">
+      <div class="cv-bg" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <div class="cv-grain" aria-hidden="true"></div>
+      <div class="cv-frame" aria-hidden="true"></div>
+      <p class="cv-label" aria-hidden="true"><b>2026</b><span>WRITING<br>PORTFOLIO</span></p>
+      <p class="cv-vert" aria-hidden="true">伝わるまでが、書くこと。</p>
+      <svg class="cv-line" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true"><path d="M-20 300 C 40 286, 70 316, 96 300 C 120 286, 104 214, 152 206 C 210 196, 228 290, 176 306 C 140 318, 120 336, 172 336 C 300 336, 380 250, 470 210 C 560 170, 620 330, 640 470 C 660 600, 520 640, 470 700 C 430 750, 560 860, 1030 820"/></svg>
+      <span class="cv-sig" aria-hidden="true">ぬっま</span>
+      <div class="fl f1 paper" aria-hidden="true"><small>AI・IT ・ 5 min read</small><p class="ttl">ChatGPTを仕事に活用する5つの方法｜具体例と注意点を解説</p><p class="ex">目的や相手との関係性を具体的に指定すると、用途に合った文案を作成しやすくなります。</p></div>
+      <div class="fl f2 paper" aria-hidden="true"><small>推敲メモ</small><p><s>簡単に利用できます。</s></p><p class="fix">いつものLINEから、アプリなしで申し込めます。</p></div>
+      <div class="fl f3 paper" aria-hidden="true"><small>SCENARIO</small><p class="ln"><b>川口</b>今の仕事、好きですか？</p><p class="ln"><b>沙也</b>……突然ですね。</p></div>
+      <p class="cv-no" aria-hidden="true">NUMMA — No.02</p>
     </div>
-    <p class="name">NUMMA</p>
-  </div>
+    <div class="catch2">
+      <p class="eb">WEB WRITING / SCENARIO</p>
+      <h1>読者に届く文章で、<br>価値あるコンテンツを。</h1>
+      <p>Webライティングからシナリオ制作まで、丁寧なリサーチと確かな構成力で、読んだ人が次の一歩を踏み出せる文章をお届けします。</p>
+      <div class="cover-actions"><a class="btn" href="#writing">記事を読む →</a><a class="btn ghost" href="#scenario">シナリオを読む →</a></div>
+    </div>
+  </section>
 
   <section class="sec" id="writing" aria-labelledby="h-writing">
     <div class="sec-head"><p class="eyebrow">Web writing</p><h2 id="h-writing">Webライティング</h2><p>各ジャンルのサンプル記事です。カードをクリックすると全文をご覧いただけます。</p></div>
@@ -356,7 +451,7 @@ dialog#reader::backdrop{background:rgba(43,42,51,.45);backdrop-filter:blur(3px)}
     ct.textContent='ご依頼・ご相談は、'+(names[from]||ct.dataset.list)+'のメッセージからお送りください。内容を確認次第、できる限り早めにご返信いたします。';
   }
   document.querySelectorAll('[data-xlink]').forEach(function(a){
-    a.href = MODE==='direct' ? a.dataset.xdirect : a.dataset.xplatform + (names[from] ? '?from='+from : '');
+    a.href = MODE==='direct' ? a.dataset.xdirect : a.dataset.xplatform + ({cw:'cw.html',lancers:'lancers.html'}[from] || (names[from] ? '?from='+from : ''));
   });
   document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){
     var t=document.getElementById(b.dataset.copy),x=t.textContent.trim(),orig=b.textContent;
